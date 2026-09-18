@@ -1,0 +1,677 @@
+{
+  "providers": [],
+  "reviews": [],
+  "categories": [
+    {
+      "id": "electrician",
+      "name": "Electrician",
+      "slug": "electrician",
+      "iconName": "Zap",
+      "description": "Electrical wiring, inverter & solar installations, distribution boards, generator ATS & lighting.",
+      "commonServices": [
+        "Inverter & Solar Installation",
+        "Generator Changeover Switch (ATS)",
+        "Distribution Board & Breaker Repair",
+        "Building Conduit & Surface Rewiring",
+        "Appliance Surge Protection",
+        "Fault Tracing & Troubleshooting"
+      ],
+      "active": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "plumber",
+      "name": "Plumber",
+      "slug": "plumber",
+      "iconName": "Wrench",
+      "description": "Borehole systems, water pumping machines, plumbing pipes, leak detection, and sanitary fittings.",
+      "commonServices": [
+        "Borehole & Submersible Pump Installation",
+        "Overhead Water Tank & Float Switch Setup",
+        "Concealed Pipe Leak Detection & Repair",
+        "Water Heater Installation & Servicing",
+        "Bathroom Sanityware & Faucet Fittings",
+        "Drain & Sewage Line Unblocking"
+      ],
+      "active": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "mechanic",
+      "name": "Mechanic",
+      "slug": "mechanic",
+      "iconName": "Car",
+      "description": "Auto diagnostics, engine overhauls, brake pads, suspension repair, and routine vehicle servicing.",
+      "commonServices": [
+        "OBD-II Computer Diagnostics",
+        "Brake Pad Replacement & Bleeding",
+        "Engine Oil & Filter Service",
+        "Suspension, Bushing & Shock Absorbers",
+        "Auto Air Conditioning Recharging",
+        "Transmission & Clutch Maintenance"
+      ],
+      "active": true,
+      "sortOrder": 3
+    },
+    {
+      "id": "phone-laptop",
+      "name": "Phone & Laptop Repair",
+      "slug": "phone-laptop",
+      "iconName": "Smartphone",
+      "description": "Smartphone screen replacement, laptop battery swaps, board-level micro-soldering, and data recovery.",
+      "commonServices": [
+        "iPhone, Samsung & Android Screen Replacement",
+        "Laptop Battery, Keyboard & Screen Fixes",
+        "Motherboard Micro-soldering & IC Chip Repairs",
+        "Operating System Reinstall & Malware Cleaning",
+        "Charging Port & Power Jack Replacement",
+        "Corrupted Drive Data Recovery"
+      ],
+      "active": true,
+      "sortOrder": 4
+    },
+    {
+      "id": "cleaner",
+      "name": "Cleaner",
+      "slug": "cleaner",
+      "iconName": "Sparkles",
+      "description": "Post-construction cleaning, deep home sanitization, fumigation, upholstery steaming, and office upkeep.",
+      "commonServices": [
+        "Deep Residential Cleaning",
+        "Post-Construction Cleanup",
+        "Fumigation & Pest Extermination",
+        "Sofa, Rug & Upholstery Steam Extraction",
+        "Move-In / Move-Out Deep Sanitization",
+        "Commercial Office Daily Maintenance"
+      ],
+      "active": true,
+      "sortOrder": 5
+    },
+    {
+      "id": "tutor",
+      "name": "Tutor",
+      "slug": "tutor",
+      "iconName": "GraduationCap",
+      "description": "One-on-one academic tutoring, WAEC/JAMB/UTME prep, coding instruction, and professional exam coaching.",
+      "commonServices": [
+        "WAEC, NECO & JAMB/UTME Preparation",
+        "Primary & Secondary Math & Sciences",
+        "Python, Web Development & Scratch Coding",
+        "English Diction, Phonics & Essay Writing",
+        "IGCSE, SAT & Cambridge Checkpoint Tutoring",
+        "Adult Literacy & Digital Skills"
+      ],
+      "active": true,
+      "sortOrder": 6
+    },
+    {
+      "id": "other",
+      "name": "Other Trades & Handyman",
+      "slug": "other",
+      "iconName": "Hammer",
+      "description": "Carpentry, painting, air conditioning, POP ceiling design, welding, and general facility maintenance.",
+      "commonServices": [
+        "Air Conditioner Installation & Gas Servicing",
+        "POP Ceiling Installation & Painting",
+        "Carpentry, Cabinetry & Door Hanging",
+        "Welding, Metal Gates & Burglar Proofing",
+        "Tiling & Interlocking Stone Laying",
+        "General Handyman & Furniture Assembly"
+      ],
+      "active": true,
+      "sortOrder": 7
+    }
+  ],
+  "emergencyContacts": [
+    {
+      "id": "em-112",
+      "name": "National Emergency Toll-Free",
+      "description": "Unified national dispatch for Police, Federal Fire Service, and Medical Ambulance.",
+      "phone": "112",
+      "country": "Nigeria",
+      "region": "National",
+      "service_type": "Police / Fire / Ambulance",
+      "active": true,
+      "priority": 1,
+      "urgent": true
+    },
+    {
+      "id": "em-199",
+      "name": "Federal Fire Service",
+      "description": "Direct federal fire outbreak control and industrial hazmat response.",
+      "phone": "199",
+      "country": "Nigeria",
+      "region": "National",
+      "service_type": "Fire & Rescue",
+      "active": true,
+      "priority": 2,
+      "urgent": true
+    },
+    {
+      "id": "em-122",
+      "name": "FRSC Road Crash Helpline",
+      "description": "Federal Road Safety Corps emergency vehicle crash and highway rescue coordination.",
+      "phone": "122",
+      "country": "Nigeria",
+      "region": "National",
+      "service_type": "Highway Rescue",
+      "active": true,
+      "priority": 3,
+      "urgent": false
+    },
+    {
+      "id": "em-6232",
+      "name": "NCDC Toll-Free Health Line",
+      "description": "Nigeria Centre for Disease Control infectious outbreak reporting and medical guidance.",
+      "phone": "6232",
+      "country": "Nigeria",
+      "region": "National",
+      "service_type": "Public Health",
+      "active": true,
+      "priority": 4,
+      "urgent": false
+    },
+    {
+      "id": "em-fema",
+      "name": "FCT Emergency Management Agency",
+      "description": "Abuja municipal flood response, building collapse rescue, and disaster mitigation.",
+      "phone": "0800-900-9000",
+      "country": "Nigeria",
+      "region": "Federal Capital Territory",
+      "service_type": "Disaster Mitigation",
+      "active": true,
+      "priority": 5,
+      "urgent": false
+    }
+  ],
+  "healthResources": [
+    {
+      "id": "health-nat-hosp-abuja",
+      "name": "National Hospital Abuja",
+      "type": "hospital",
+      "address": "Plot 132, Central Business District, Abuja, FCT",
+      "cityId": "abuja-fct",
+      "lat": 9.0385,
+      "lng": 7.4642,
+      "phone": "+234 9 291 5830",
+      "hours": "Open 24 Hours / 7 Days",
+      "services": [
+        "24/7 Level 1 Emergency & Trauma",
+        "Intensive Care Unit (ICU)",
+        "Pediatric Emergency",
+        "Diagnostic Radiology & CT Scan",
+        "Blood Bank & Pathology Labs"
+      ],
+      "description": "Premier multi-specialty federal referral hospital in Nigeria equipped with a 24-hour trauma ward, surgical theaters, and specialized critical care.",
+      "emergency_available": true,
+      "verified_status": "verified",
+      "website": "https://nationalhospital.gov.ng",
+      "is_demo": false
+    },
+    {
+      "id": "health-maitama-dist-hosp",
+      "name": "Maitama District Hospital",
+      "type": "hospital",
+      "address": "Aguiyi Ironsi Street, Maitama District, Abuja, FCT",
+      "cityId": "abuja-fct",
+      "lat": 9.0882,
+      "lng": 7.4938,
+      "phone": "+234 9 461 8000",
+      "hours": "Open 24 Hours / 7 Days",
+      "services": [
+        "24/7 Casualty & Emergency Ward",
+        "Maternity & Labor Delivery",
+        "Internal Medicine",
+        "Pharmacy Services"
+      ],
+      "description": "Major public secondary healthcare facility in the Federal Capital Territory providing full casualty emergency services, maternal care, and surgical units.",
+      "emergency_available": true,
+      "verified_status": "verified",
+      "is_demo": false
+    },
+    {
+      "id": "health-garki-hosp",
+      "name": "Garki Hospital Abuja",
+      "type": "hospital",
+      "address": "Tafawa Balewa Way, Area 8, Garki District, Abuja, FCT",
+      "cityId": "abuja-fct",
+      "lat": 9.0336,
+      "lng": 7.4891,
+      "phone": "+234 809 393 0000",
+      "hours": "Open 24 Hours / 7 Days",
+      "services": [
+        "Accident & Emergency Care",
+        "Cardiology & Dialysis Center",
+        "Neonatal ICU",
+        "Outpatient Consultation"
+      ],
+      "description": "Accredited multi-disciplinary hospital recognized for rapid casualty triage, dialysis, and emergency maternal and pediatric admissions.",
+      "emergency_available": true,
+      "verified_status": "verified",
+      "website": "https://garkihospital.com",
+      "is_demo": false
+    },
+    {
+      "id": "health-healthplus-wuse",
+      "name": "HealthPlus Pharmacy & 24/7 Care Point",
+      "type": "pharmacy",
+      "address": "Plot 782, Adetokunbo Ademola Crescent, Wuse II, Abuja",
+      "cityId": "abuja-fct",
+      "lat": 9.0792,
+      "lng": 7.4856,
+      "phone": "+234 817 200 4400",
+      "hours": "Open 24 Hours",
+      "services": [
+        "Emergency Prescription Dispensing",
+        "Blood Pressure & Sugar Screenings",
+        "Vaccination & Travel Immunizations",
+        "First Aid Supplies & Reagents"
+      ],
+      "description": "Licensed retail community pharmacy stocking verified prescription drugs, infant nutrition, emergency medical dressings, and diagnostics.",
+      "emergency_available": false,
+      "verified_status": "verified",
+      "is_demo": false
+    },
+    {
+      "id": "health-fmc-jabi",
+      "name": "Federal Medical Centre (FMC) Jabi",
+      "type": "hospital",
+      "address": "Jabi District, near Motor Park, Abuja, FCT",
+      "cityId": "abuja-fct",
+      "lat": 9.072,
+      "lng": 7.431,
+      "phone": "+234 803 700 8822",
+      "hours": "Open 24 Hours / 7 Days",
+      "services": [
+        "Emergency Resuscitation Center",
+        "Orthopedic & Trauma Surgery",
+        "Ophthalmology & ENT",
+        "Mental Health Support Clinic"
+      ],
+      "description": "Modern federal clinical referral center serving the FCT and surrounding north-central communities with dedicated trauma and triage care.",
+      "emergency_available": true,
+      "verified_status": "verified",
+      "is_demo": false
+    },
+    {
+      "id": "health-synlab-med-lab",
+      "name": "SYNLAB Clinical Laboratory Abuja",
+      "type": "lab",
+      "address": "Plot 1084, Joseph Gomwalk Street, Gudu District, Abuja",
+      "cityId": "abuja-fct",
+      "lat": 9.018,
+      "lng": 7.489,
+      "phone": "+234 810 000 7965",
+      "hours": "07:30 - 18:00 (Mon - Sat)",
+      "services": [
+        "Automated Blood Chemistry & Hematology",
+        "Molecular PCR Testing",
+        "Toxicology & Drug Screening",
+        "Preventive Wellness Panels"
+      ],
+      "description": "ISO-accredited medical testing laboratory offering precision blood panels, hormone assays, and corporate health screenings.",
+      "emergency_available": false,
+      "verified_status": "verified",
+      "is_demo": false
+    }
+  ],
+  "studySubjects": [
+    {
+      "id": "math",
+      "name": "Mathematics",
+      "slug": "mathematics",
+      "iconName": "Calculator",
+      "description": "From fundamental fractions and algebra to quadratic functions, calculus, and statistics for secondary and UTME exams.",
+      "sortOrder": 1,
+      "active": true,
+      "color": "emerald",
+      "topicsCount": 14
+    },
+    {
+      "id": "english",
+      "name": "English Language & Comprehension",
+      "slug": "english",
+      "iconName": "BookOpen",
+      "description": "Sentence syntax, grammar mechanics, oral phonetics, reading comprehension, and formal essay composition.",
+      "sortOrder": 2,
+      "active": true,
+      "color": "blue",
+      "topicsCount": 12
+    },
+    {
+      "id": "physics",
+      "name": "Physics",
+      "slug": "physics",
+      "iconName": "Zap",
+      "description": "Mechanics, Ohm’s law, electromagnetic induction, optical reflection, wave particle duality, and thermal physics.",
+      "sortOrder": 3,
+      "active": true,
+      "color": "amber",
+      "topicsCount": 16
+    },
+    {
+      "id": "chemistry",
+      "name": "Chemistry",
+      "slug": "chemistry",
+      "iconName": "Atom",
+      "description": "Atomic structures, chemical bonding, acid-base titration, stoichiometry, periodic trends, and organic hydrocarbons.",
+      "sortOrder": 4,
+      "active": true,
+      "color": "purple",
+      "topicsCount": 15
+    },
+    {
+      "id": "comp-sci",
+      "name": "Computer Science & Coding",
+      "slug": "computer-science",
+      "iconName": "Code2",
+      "description": "Algorithms, logic diagrams, Python programming foundations, web technology (HTML/CSS), and database essentials.",
+      "sortOrder": 5,
+      "active": true,
+      "color": "cyan",
+      "topicsCount": 10
+    },
+    {
+      "id": "trades-tech",
+      "name": "Electrical & Technical Trades",
+      "slug": "electrical-trades",
+      "iconName": "Wrench",
+      "description": "Practical electricity, circuit schematics, inverter sizing, solar photovoltaic calculations, and electrical safety codes.",
+      "sortOrder": 6,
+      "active": true,
+      "color": "rose",
+      "topicsCount": 8
+    }
+  ],
+  "studyMaterials": [
+    {
+      "id": "mat-math-quad",
+      "title": "Mastering the Quadratic Formula: Step-by-Step Derivation",
+      "subject_id": "math",
+      "topic_id": "algebra",
+      "description": "Learn how the quadratic formula x = (-b ± √(b² - 4ac)) / 2a is derived from completing the square, with 3 real worked examples.",
+      "difficulty": "intermediate",
+      "type": "guide",
+      "content": "# The Quadratic Formula & Derivation\n\nThe standard quadratic equation takes the form:\n**ax² + bx + c = 0** (where a ≠ 0)\n\n### Method: Completing the Square\n1. Divide through by a:\n   x² + (b/a)x + (c/a) = 0\n2. Move the constant term to the right side:\n   x² + (b/a)x = -c/a\n3. Add (b / 2a)² to both sides to complete the square:\n   x² + (b/a)x + (b / 2a)² = (b² / 4a²) - (c/a)\n   [x + (b/2a)]² = (b² - 4ac) / 4a²\n4. Take square roots of both sides:\n   x + (b/2a) = ± √(b² - 4ac) / 2a\n5. Subtract b/2a:\n   **x = [-b ± √(b² - 4ac)] / (2a)**\n\n### Key Discriminant Rules (Δ = b² - 4ac)\n- **Δ > 0**: Two distinct real roots.\n- **Δ = 0**: Exactly one repeated real root (perfect square).\n- **Δ < 0**: No real roots (complex roots).",
+      "created_at": "2026-02-01T10:00:00Z"
+    },
+    {
+      "id": "mat-elec-ohms",
+      "title": "Ohm's Law & Circuit Analysis Cheat Sheet",
+      "subject_id": "trades-tech",
+      "topic_id": "circuits",
+      "description": "Quick reference for Voltage, Current, Resistance, and Electrical Power relationships (V = IR, P = VI = I²R = V²/R).",
+      "difficulty": "beginner",
+      "type": "cheat_sheet",
+      "content": "# Ohm's Law & DC Power Formulas\n\n### The Fundamental Triangle\n- **V = I × R** (Voltage = Current in Amperes × Resistance in Ohms)\n- **I = V / R**\n- **R = V / I**\n\n### Electrical Power Calculations\n- **P = V × I** (Watts = Volts × Amps)\n- **P = I² × R** (Joule heating loss in cables)\n- **P = V² / R**\n\n### Practical Application: Solar Inverter Sizing\nIf a residential inverter supplies **3000 Watts (3kW)** at **240V AC**, the AC current drawn is:\nI = P / V = 3000W / 240V = **12.5 Amps**.\n\nOn the DC 48V battery side (assuming 90% inverter efficiency):\nTotal DC Power = 3000 / 0.90 = 3333W.\nDC Current = 3333W / 48V = **69.4 Amps**.\n*Rule of thumb:* Always size battery DC cable conductors for minimum 70A to prevent excessive voltage drops!",
+      "created_at": "2026-02-04T12:00:00Z"
+    },
+    {
+      "id": "mat-phys-newton",
+      "title": "Newton's Laws of Motion & Momentum Conservation",
+      "subject_id": "physics",
+      "topic_id": "mechanics",
+      "description": "Concise summary of the three laws of motion, inertia, friction factors, and impulse-momentum equations with exam tips.",
+      "difficulty": "beginner",
+      "type": "guide",
+      "content": "# Newton's Three Laws of Motion\n\n### 1. First Law (Law of Inertia)\nAn object at rest stays at rest, and an object in uniform straight-line motion stays in motion unless acted upon by a net external force.\n\n### 2. Second Law (Force & Acceleration)\nThe rate of change of momentum is directly proportional to the applied force and occurs in the direction of the force:\n**F_net = m × a** (Force in Newtons = Mass in kg × Acceleration in m/s²)\n\n### 3. Third Law (Action & Reaction)\nFor every action force exerted on body B by body A, there is an equal in magnitude and opposite in direction reaction force exerted on body A by body B.\n*Important:* Action and reaction forces act on **two different objects**, which is why they never cancel each other out!",
+      "created_at": "2026-02-08T15:00:00Z"
+    },
+    {
+      "id": "mat-cs-python",
+      "title": "Python Core Syntax & Data Structures Quickstart",
+      "subject_id": "comp-sci",
+      "topic_id": "python",
+      "description": "Lists, dictionaries, control flow loops, list comprehensions, and function definitions with practical snippets.",
+      "difficulty": "beginner",
+      "type": "cheat_sheet",
+      "content": "# Python Core Syntax Reference\n\n### Data Structures\n```python\n# List (Ordered, mutable)\ncities = [\"Abuja\", \"Lagos\", \"Port Harcourt\"]\ncities.append(\"Ibadan\")\n\n# Dictionary (Key-value mapping)\nprovider = {\n    \"name\": \"Wuse Electrical\",\n    \"verified\": True,\n    \"rating\": 4.8\n}\n\n# Tuple (Immutable)\ncoordinates = (9.0765, 7.3986)\n```\n\n### Loops & List Comprehensions\n```python\n# Filter high ratings\nverified_names = [p[\"name\"] for p in provider_list if p[\"verified\"]]\n```",
+      "created_at": "2026-02-12T14:00:00Z"
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "quiz-math-algebra",
+      "subject_id": "math",
+      "topic_id": "algebra",
+      "title": "Algebraic Equations & Quadratic Roots Drill",
+      "difficulty": "intermediate",
+      "description": "Test your grasp on solving linear systems, factorizing quadratics, and evaluating discriminants.",
+      "questions": [
+        {
+          "id": "q-m-1",
+          "quiz_id": "quiz-math-algebra",
+          "question": "What are the roots of the quadratic equation x² - 7x + 12 = 0?",
+          "type": "multiple_choice",
+          "options": [
+            "x = 2 and x = 6",
+            "x = 3 and x = 4",
+            "x = -3 and x = -4",
+            "x = 1 and x = 12"
+          ],
+          "correct_index": 1,
+          "explanation": "Factoring: (x - 3)(x - 4) = 0. Therefore x = 3 or x = 4. Check: 3² - 7(3) + 12 = 9 - 21 + 12 = 0."
+        },
+        {
+          "id": "q-m-2",
+          "quiz_id": "quiz-math-algebra",
+          "question": "If the discriminant (b² - 4ac) of a quadratic equation is strictly negative (Δ < 0), what can be said about the roots?",
+          "type": "multiple_choice",
+          "options": [
+            "The equation has two equal rational roots",
+            "The equation has two distinct real roots",
+            "The equation has no real roots (the roots are complex)",
+            "The equation has exactly one zero root"
+          ],
+          "correct_index": 2,
+          "explanation": "Because the quadratic formula requires taking the square root of the discriminant, √(negative number) produces complex/imaginary roots, meaning there are no intersections on the real x-axis."
+        },
+        {
+          "id": "q-m-3",
+          "quiz_id": "quiz-math-algebra",
+          "question": "Solve for x: 3(2x - 4) = 4x + 6.",
+          "type": "multiple_choice",
+          "options": [
+            "x = 9",
+            "x = 5",
+            "x = 3",
+            "x = 11"
+          ],
+          "correct_index": 0,
+          "explanation": "Expand: 6x - 12 = 4x + 6. Subtract 4x from both sides: 2x - 12 = 6. Add 12: 2x = 18. Divide by 2: x = 9."
+        }
+      ]
+    },
+    {
+      "id": "quiz-elec-basics",
+      "subject_id": "trades-tech",
+      "topic_id": "circuits",
+      "title": "Electrical Principles & Circuit Safety Drill",
+      "difficulty": "beginner",
+      "description": "Fundamental questions on current flow, Ohm’s Law, inverter power calculations, and household protective devices.",
+      "questions": [
+        {
+          "id": "q-e-1",
+          "quiz_id": "quiz-elec-basics",
+          "question": "If a 240V electric water heater has an internal element resistance of 20 Ohms, what current does it draw from the mains?",
+          "type": "multiple_choice",
+          "options": [
+            "8 Amperes",
+            "12 Amperes",
+            "24 Amperes",
+            "4800 Amperes"
+          ],
+          "correct_index": 1,
+          "explanation": "By Ohm’s Law, Current I = V / R = 240V / 20Ω = 12 Amperes."
+        },
+        {
+          "id": "q-e-2",
+          "quiz_id": "quiz-elec-basics",
+          "question": "Which protective safety device trips within milliseconds specifically when it senses electrical leakage current to ground, protecting human life from lethal shock?",
+          "type": "multiple_choice",
+          "options": [
+            "Standard Thermal-Magnetic Circuit Breaker (MCB)",
+            "RCD / GFCI (Residual Current Device / Ground Fault Interrupter)",
+            "High Rupture Capacity (HRC) Fuse",
+            "Manual Isolator Knife Switch"
+          ],
+          "correct_index": 1,
+          "explanation": "An RCD (Residual Current Device) or GFCI detects small current imbalances (typically 30mA or less) between live and neutral wires and disconnects power to prevent fatal electrocution."
+        },
+        {
+          "id": "q-e-3",
+          "quiz_id": "quiz-elec-basics",
+          "question": "In a residential solar system, what is the primary role of a Charge Controller?",
+          "type": "multiple_choice",
+          "options": [
+            "Converting DC battery voltage into 220V AC voltage",
+            "Regulating voltage and current from solar panels to protect batteries from overcharging",
+            "Switching between NEPA/PHCN utility power and generator automatically",
+            "Measuring the water level in lead-acid battery cells"
+          ],
+          "correct_index": 1,
+          "explanation": "Solar Charge Controllers (MPPT or PWM) regulate incoming power from photovoltaic arrays to safely charge storage batteries without overheating or overcharging them."
+        }
+      ]
+    },
+    {
+      "id": "quiz-physics-newton",
+      "subject_id": "physics",
+      "topic_id": "mechanics",
+      "title": "Newtonian Mechanics & Force Dynamics",
+      "difficulty": "intermediate",
+      "description": "Test your understanding of Newton’s second law, friction, acceleration due to gravity, and momentum conservation.",
+      "questions": [
+        {
+          "id": "q-p-1",
+          "quiz_id": "quiz-physics-newton",
+          "question": "A constant horizontal force of 50 N is applied to accelerate a 10 kg crate across a frictionless floor. What is the acceleration produced?",
+          "type": "multiple_choice",
+          "options": [
+            "0.2 m/s²",
+            "5.0 m/s²",
+            "500 m/s²",
+            "25 m/s²"
+          ],
+          "correct_index": 1,
+          "explanation": "Using Newton’s second law: a = F / m = 50 N / 10 kg = 5.0 m/s²."
+        },
+        {
+          "id": "q-p-2",
+          "quiz_id": "quiz-physics-newton",
+          "question": "True or False: Action and reaction forces described in Newton’s third law cancel each other out because they are equal and opposite.",
+          "type": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_index": 1,
+          "explanation": "False! Action and reaction forces act on TWO DIFFERENT bodies, so they never cancel each other out on any single isolated object."
+        }
+      ]
+    }
+  ],
+  "quizAttempts": [],
+  "communityReports": [
+    {
+      "id": "rep-001",
+      "user_name": "Emeka Uche",
+      "title": "Open Trench & Damaged Storm Drain Hazard",
+      "description": "Deep exposed concrete drain near the junction along Ahmadu Bello Way. Poses high risk to pedestrians and turning vehicles during evening hours.",
+      "category": "road",
+      "location": "Ahmadu Bello Way near Wuse II roundabout",
+      "address": "Wuse II, Abuja",
+      "cityId": "abuja-fct",
+      "status": "under_review",
+      "created_at": "2026-03-01T08:30:00Z"
+    },
+    {
+      "id": "rep-002",
+      "user_name": "Fatima Garba",
+      "title": "Faulty Solar Streetlight Array on 3rd Avenue",
+      "description": "Three consecutive streetlights are dark after 8pm between 3rd Avenue junction and the shopping complex, creating a dark spot.",
+      "category": "streetlight",
+      "location": "3rd Avenue, Gwarinpa Estate",
+      "address": "Gwarinpa Estate, Abuja",
+      "cityId": "abuja-fct",
+      "status": "in_progress",
+      "created_at": "2026-02-27T19:15:00Z"
+    },
+    {
+      "id": "rep-003",
+      "user_name": "Dr. Chidi Nwosu",
+      "title": "Burst Public Water Reticulation Pipe",
+      "description": "Clean municipal water pipe ruptured on the shoulder of Area 1 road, causing continuous road erosion and water pooling.",
+      "category": "water",
+      "location": "Area 1 Section near District Park",
+      "address": "Garki, Abuja",
+      "cityId": "abuja-fct",
+      "status": "resolved",
+      "created_at": "2026-02-20T10:00:00Z"
+    }
+  ],
+  "volunteerOrganizations": [
+    {
+      "id": "org-abuja-green",
+      "name": "Abuja Urban Conservation & Cleanup Guild",
+      "mission": "Citizen-led initiative restoring urban green belts, cleaning neighborhood storm drains, and planting indigenous shade trees.",
+      "website": "https://civictrust.ng/abuja-green",
+      "contact_email": "volunteer@abujagreen.local",
+      "phone": "+234 803 111 0022",
+      "address": "Millennium Park Pavilion, Maitama, Abuja",
+      "cityId": "abuja-fct",
+      "verified": true
+    },
+    {
+      "id": "org-tech-youth",
+      "name": "TechBridge Northern Youth Literacy",
+      "mission": "Equipping underprivileged students and young school leavers with basic programming, computer maintenance, and digital literacy skills.",
+      "website": "https://civictrust.ng/techbridge",
+      "contact_email": "hello@techbridge.local",
+      "phone": "+234 809 222 3344",
+      "address": "Jabi Community Tech Center, Jabi, Abuja",
+      "cityId": "abuja-fct",
+      "verified": true
+    }
+  ],
+  "volunteerOpportunities": [
+    {
+      "id": "vol-drain-clean",
+      "org_id": "org-abuja-green",
+      "org_name": "Abuja Urban Conservation & Cleanup Guild",
+      "title": "Pre-Rainy Season Drainage & Waste Clearance Drive",
+      "description": "Join community members for a 3-hour weekend environmental cleanup targeting plastic waste clogging water channels in Utako market perimeter.",
+      "location": "Utako Market Public Access Road, Abuja",
+      "cityId": "abuja-fct",
+      "date": "Saturday, March 28, 2026 • 07:30 AM",
+      "requirements": [
+        "Sturdy boots or covered shoes",
+        "Gloves and trash bags will be provided on site",
+        "Open to all volunteers age 16+"
+      ],
+      "contact": "volunteer@abujagreen.local or call +234 803 111 0022",
+      "active": true,
+      "created_at": "2026-02-25T12:00:00Z"
+    },
+    {
+      "id": "vol-code-mentor",
+      "org_id": "org-tech-youth",
+      "org_name": "TechBridge Northern Youth Literacy",
+      "title": "Weekend Python & Digital Skills Peer Mentor",
+      "description": "Assist secondary school students during Saturday hands-on lab sessions introducing variables, loops, and basic web creation.",
+      "location": "Jabi Community Tech Hub, Abuja",
+      "cityId": "abuja-fct",
+      "date": "Saturdays (Recurring) • 10:00 AM - 01:00 PM",
+      "requirements": [
+        "Basic knowledge of Python or HTML/CSS",
+        "Patience and passion for mentoring beginners",
+        "Commitment to 2 sessions per month"
+      ],
+      "contact": "mentors@techbridge.local",
+      "active": true,
+      "created_at": "2026-02-28T09:00:00Z"
+    }
+  ],
+  "savedItems": {},
+  "lastUpdated": "2026-09-18T14:25:57.303Z"
+}
