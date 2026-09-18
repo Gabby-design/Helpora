@@ -26,6 +26,7 @@ import {
 import { CITIES, DEFAULT_CITY } from '@/lib/data/cities';
 import { ServiceCategory } from '@/lib/types';
 import Link from 'next/link';
+import HeroCarousel from './HeroCarousel';
 
 export default function SearchHero() {
   const router = useRouter();
@@ -298,36 +299,12 @@ export default function SearchHero() {
             </div>
           </div>
 
-          {/* Right Column: High-Quality Service Showcase Collage */}
+          {/* Right Column: High-Quality Service Showcase Carousel */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
-              {/* Main Service Visual Card */}
-              <div className="relative rounded-3xl overflow-hidden shadow-elevated-lg border border-slate-200/80 bg-white group">
-                <img
-                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
-                  alt="Verified Nigerian Service Professional"
-                  className="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
-                
-                {/* On-card caption */}
-                <div className="absolute bottom-5 left-5 right-5 text-white space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10.5px] font-bold uppercase tracking-wider shadow-xs">
-                      Solar & Power Systems
-                    </span>
-                    <span className="text-xs text-slate-200 font-medium">Abuja • Lagos • Nationwide</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white leading-snug">
-                    Vetted Inverter Technicians & Certified Electricians
-                  </h3>
-                  <div className="flex items-center gap-2 text-xs text-emerald-300 font-medium pt-1">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>CAC & ID Audited • Community Recommended</span>
-                  </div>
-                </div>
-              </div>
+              {/* Dynamic Service & Healthcare Rotating Carousel */}
+              <HeroCarousel />
 
               {/* Floating Mini Card 1: Fast Response & Rating */}
               <div className="absolute -top-4 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-elevated border border-slate-200/90 flex items-center gap-3 animate-float">
