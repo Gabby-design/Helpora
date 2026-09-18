@@ -185,25 +185,28 @@ export default function ProviderProfilePage() {
   const currentDayName = DAYS_OF_WEEK[new Date().getDay()];
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-16">
+    <div className="min-h-screen bg-slate-50 pb-20 relative overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="absolute top-0 right-1/3 w-96 h-96 bg-emerald-400/5 rounded-full blur-3xl pointer-events-none" />
+
       {/* Top Breadcrumb & Quick Actions Bar */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-16 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
           <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition"
+            className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-emerald-700 transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to Services</span>
+            <span>Back to Providers</span>
           </button>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleToggleSave}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition ${
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border text-xs font-semibold transition ${
                 isSaved
-                  ? 'bg-emerald-50 border-emerald-300 text-emerald-800 font-semibold'
-                  : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                  ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+                  : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50 shadow-xs'
               }`}
             >
               <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-emerald-600 text-emerald-600' : ''}`} />
@@ -212,10 +215,10 @@ export default function ProviderProfilePage() {
 
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-700 hover:bg-slate-50 transition"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-xs"
             >
               {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
-              <span>{copiedLink ? 'Link Copied' : 'Share Profile'}</span>
+              <span>{copiedLink ? 'Link Copied' : 'Share'}</span>
             </button>
           </div>
         </div>
@@ -226,24 +229,24 @@ export default function ProviderProfilePage() {
           {/* Main Left Column: Overview, Photos, Hours, Reviews */}
           <div className="lg:col-span-8 space-y-8">
             {/* Business Header Card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-              <div className="flex flex-wrap items-center gap-2 mb-3">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-elevated">
+              <div className="flex flex-wrap items-center gap-2.5 mb-4">
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">
                   {category?.name || provider.category}
                 </span>
 
                 {/* Demo Badge */}
                 {provider.is_demo && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-300">
                     <FlaskConical className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Demo Record</span>
+                    <span>Demo Profile</span>
                   </span>
                 )}
 
                 {isVerified ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-xs">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span>Helpora Verified</span>
+                    <span>Helpora Verified Professional</span>
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
@@ -253,7 +256,7 @@ export default function ProviderProfilePage() {
                 )}
 
                 {provider.license_number && (
-                  <span className="text-xs text-slate-500 font-mono bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200">
+                  <span className="text-xs text-slate-500 font-mono bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
                     {provider.license_number}
                   </span>
                 )}
@@ -335,13 +338,15 @@ export default function ProviderProfilePage() {
             </div>
 
             {/* Weekly Operating Hours */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-              <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-emerald-600" />
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-elevated">
+              <h3 className="text-lg font-bold text-slate-900 mb-5 flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                  <Clock className="w-4 h-4" />
+                </div>
                 <span>Weekly Hours of Operation</span>
               </h3>
 
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 rounded-2xl overflow-hidden border border-slate-100">
                 {DAYS_OF_WEEK.map((day) => {
                   const dayData = provider.hours ? provider.hours[day] : undefined;
                   const isToday = day === currentDayName;
@@ -350,14 +355,14 @@ export default function ProviderProfilePage() {
                   return (
                     <div
                       key={day}
-                      className={`py-2.5 px-3 flex items-center justify-between text-xs sm:text-sm rounded-lg ${
-                        isToday ? 'bg-emerald-50/80 font-bold text-emerald-950' : 'text-slate-700'
+                      className={`py-3 px-4 flex items-center justify-between text-xs sm:text-sm transition ${
+                        isToday ? 'bg-emerald-50/90 font-bold text-emerald-950' : 'text-slate-700 hover:bg-slate-50/60'
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         <span>{formattedDay}</span>
                         {isToday && (
-                          <span className="text-[10px] uppercase font-extrabold tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] uppercase font-extrabold tracking-wider bg-emerald-600 text-white px-2.5 py-0.5 rounded-full shadow-xs">
                             Today
                           </span>
                         )}
@@ -365,7 +370,7 @@ export default function ProviderProfilePage() {
 
                       <div className="text-right font-medium">
                         {dayData && !dayData.closed && dayData.open && dayData.close ? (
-                          <span>
+                          <span className="text-slate-900 font-semibold">
                             {dayData.open} – {dayData.close}
                           </span>
                         ) : (
@@ -379,51 +384,53 @@ export default function ProviderProfilePage() {
             </div>
 
             {/* Customer Reviews Section */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-elevated space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-emerald-600" />
+                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
                   <span>Customer Reviews ({provider.reviews?.length || 0})</span>
                 </h3>
 
-                <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200">
                   <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  <span className="text-xs font-bold text-amber-900">
+                  <span className="text-xs font-bold text-amber-950">
                     {provider.avg_rating > 0 ? provider.avg_rating.toFixed(1) : 'No reviews yet'}
                   </span>
                 </div>
               </div>
 
               {/* Review Submission Form */}
-              <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
-                <h4 className="text-sm font-bold text-slate-900">Leave a Review</h4>
+              <div className="bg-slate-50 rounded-2xl p-5 sm:p-6 border border-slate-200 space-y-4">
+                <h4 className="text-sm font-bold text-slate-900">Leave a Verified Review</h4>
                 <p className="text-xs text-slate-500">
-                  Have you hired this professional? Share your experience to help other Helpora users.
+                  Have you hired this professional? Share your experience to help other Helpora users in your neighborhood.
                 </p>
 
                 {reviewSuccessMsg && (
-                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-medium flex items-center gap-2">
+                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-semibold flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>{reviewSuccessMsg}</span>
                   </div>
                 )}
 
-                <form onSubmit={handleReviewSubmit} className="space-y-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <form onSubmit={handleReviewSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Your Name</label>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">Your Name</label>
                       <input
                         type="text"
                         required
                         value={reviewerName}
                         onChange={(e) => setReviewerName(e.target.value)}
-                        placeholder="e.g. Kelechi O."
-                        className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+                        placeholder="e.g. Kelechi O. (Abuja)"
+                        className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-700 mb-1">Rating</label>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">Rating</label>
                       <div className="flex items-center gap-1 pt-1">
                         {[1, 2, 3, 4, 5].map((starVal) => (
                           <button
@@ -432,7 +439,7 @@ export default function ProviderProfilePage() {
                             onClick={() => setRating(starVal)}
                             onMouseEnter={() => setHoverRating(starVal)}
                             onMouseLeave={() => setHoverRating(0)}
-                            className="p-1 focus:outline-none"
+                            className="p-1 focus:outline-none transition-transform hover:scale-110"
                             aria-label={`Rate ${starVal} out of 5 stars`}
                           >
                             <Star
@@ -452,28 +459,28 @@ export default function ProviderProfilePage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Your Review</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Your Review</label>
                     <textarea
                       required
                       rows={3}
                       value={reviewText}
                       onChange={(e) => setReviewText(e.target.value)}
-                      placeholder="Describe what work was performed, promptness, and overall satisfaction..."
-                      className="w-full p-3 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+                      placeholder="Describe what work was performed, promptness, transparency of price, and overall satisfaction..."
+                      className="w-full p-3.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmittingReview}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-xs"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-glow-brand"
                   >
                     {isSubmittingReview ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
                     ) : (
                       <Send className="w-3.5 h-3.5 text-white" />
                     )}
-                    <span>Submit Review</span>
+                    <span>Post Review</span>
                   </button>
                 </form>
               </div>
@@ -481,15 +488,15 @@ export default function ProviderProfilePage() {
               {/* Reviews List */}
               <div className="space-y-4 pt-2">
                 {!provider.reviews || provider.reviews.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic text-center py-4">
+                  <p className="text-xs text-slate-400 italic text-center py-6">
                     Be the first customer to leave a review for {provider.name}.
                   </p>
                 ) : (
                   provider.reviews.map((rev) => (
-                    <div key={rev.id} className="p-4 rounded-2xl bg-white border border-slate-200/80 space-y-2">
+                    <div key={rev.id} className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-subtle space-y-2.5">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-700">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-bold">
                             {rev.author.charAt(0)}
                           </span>
                           <div>
@@ -516,7 +523,7 @@ export default function ProviderProfilePage() {
                         </div>
                       </div>
 
-                      <p className="text-xs text-slate-700 leading-relaxed pl-9">
+                      <p className="text-xs text-slate-700 leading-relaxed pl-10">
                         {rev.text}
                       </p>
                     </div>
@@ -528,13 +535,18 @@ export default function ProviderProfilePage() {
 
           {/* Right Column: Contact & Quick Actions Card */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm sticky top-24 space-y-6">
-              <h3 className="text-base font-bold text-slate-900">Direct Contact</h3>
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-elevated sticky top-28 space-y-6">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 className="text-base font-bold text-slate-950">Direct Contact</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  Zero Commission
+                </span>
+              </div>
 
               {/* Phone CTA */}
               <a
                 href={`tel:${provider.phone.replace(/[^0-9+]/g, '')}`}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-xs transition"
+                className="w-full flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-glow-brand transition active:scale-95"
               >
                 <Phone className="w-4 h-4" />
                 <span>Call {provider.phone}</span>
@@ -543,9 +555,9 @@ export default function ProviderProfilePage() {
               {/* Helpora Live Navigator CTA */}
               <Link
                 href={`/services/search?category=${provider.category}&cityId=${provider.cityId || 'abuja'}&navigateClosest=true`}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-sm transition active:scale-95 shadow-xs"
+                className="w-full flex items-center justify-center gap-2.5 py-3 px-4 rounded-2xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs transition active:scale-95 shadow-subtle"
               >
-                <Navigation className="w-4 h-4 text-emerald-600" />
+                <Navigation className="w-4 h-4 text-emerald-400" />
                 <span>Navigate in Helpora</span>
               </Link>
 
@@ -554,30 +566,30 @@ export default function ProviderProfilePage() {
                 href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm transition"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition"
               >
-                <Navigation className="w-4 h-4 text-slate-500" />
-                <span>Google Maps Directions</span>
+                <Navigation className="w-3.5 h-3.5 text-slate-500" />
+                <span>Open in Google Maps</span>
               </a>
 
               {/* Location details */}
-              <div className="space-y-3 pt-4 border-t border-slate-100 text-xs">
-                <div className="flex items-start gap-2 text-slate-700">
-                  <MapPin className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+              <div className="space-y-3 pt-3 border-t border-slate-100 text-xs">
+                <div className="flex items-start gap-2.5 text-slate-700">
+                  <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold block">Address</span>
-                    <span>{provider.address}</span>
+                    <span className="font-bold text-slate-900 block mb-0.5">Physical Workshop / Address</span>
+                    <span className="text-slate-600">{provider.address}</span>
                   </div>
                 </div>
 
                 {provider.website && (
-                  <div className="flex items-center gap-2 text-slate-700">
-                    <Globe className="w-4 h-4 text-slate-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-slate-700">
+                    <Globe className="w-4 h-4 text-emerald-600 shrink-0" />
                     <a
                       href={provider.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-emerald-700 hover:underline truncate"
+                      className="text-emerald-700 hover:underline font-medium truncate"
                     >
                       {provider.website.replace('https://', '')}
                     </a>
@@ -586,47 +598,47 @@ export default function ProviderProfilePage() {
               </div>
 
               {/* Verification Audit Record */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
-                <div className="flex items-center gap-1.5 font-bold text-slate-900">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Helpora Verification Status</span>
+              <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-1.5 text-xs">
+                <div className="flex items-center gap-1.5 font-bold text-emerald-950">
+                  <ShieldCheck className="w-4 h-4 text-emerald-700" />
+                  <span>Helpora Verification Standard</span>
                 </div>
-                <p className="text-slate-500 leading-relaxed">
+                <p className="text-slate-600 leading-relaxed text-[11px]">
                   {isVerified ? (
                     <>
-                      Verified listing. Verified against business registration records.
+                      Identity and CAC trade records verified. Client payments are protected by direct dispute mediation.
                     </>
                   ) : (
                     <>
-                      This profile is registered on Helpora and undergoing standard verification.
+                      This profile is registered on Helpora and undergoing standard business verification.
                     </>
                   )}
                 </p>
               </div>
 
               {/* Claim Business CTA & Report */}
-              <div className="space-y-2 text-center pt-2 border-t border-slate-100">
+              <div className="space-y-2.5 text-center pt-2 border-t border-slate-100">
                 <Link
                   href={`/business/register?claim=${provider.id}`}
-                  className="block text-xs text-emerald-700 hover:underline font-semibold"
+                  className="block text-xs text-emerald-700 hover:underline font-bold"
                 >
-                  Do you own this business? Claim this listing →
+                  Do you own this business? Claim listing &rarr;
                 </Link>
 
                 <button
                   onClick={() => setIsReporting(true)}
-                  className="text-[11px] text-slate-400 hover:text-rose-600 inline-flex items-center gap-1"
+                  className="text-[11px] text-slate-400 hover:text-rose-600 inline-flex items-center gap-1 transition"
                 >
                   <Flag className="w-3 h-3" />
                   <span>Report listing issue</span>
                 </button>
 
                 {isReporting && (
-                  <div className="mt-2 p-3 rounded-xl bg-slate-100 text-left space-y-2">
-                    <p className="text-[11px] text-slate-600 font-semibold">Report Listing Issue:</p>
+                  <div className="mt-2 p-3 rounded-2xl bg-slate-100 text-left space-y-2">
+                    <p className="text-[11px] text-slate-700 font-semibold">Report Listing Issue:</p>
                     <button
                       onClick={handleReportListing}
-                      className="w-full py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-[11px] font-bold"
+                      className="w-full py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-[11px] font-bold transition"
                     >
                       {reportSubmitted ? 'Report Logged — Thank you' : 'Confirm & Submit Report'}
                     </button>

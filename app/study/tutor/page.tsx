@@ -190,16 +190,18 @@ function TutorChatContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col pb-16 lg:pb-0">
-      
+    <div className="min-h-screen bg-slate-50 flex flex-col pb-16 lg:pb-0 relative overflow-hidden">
+      {/* Decorative ambient background glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-teal-400/5 rounded-full blur-3xl pointer-events-none" />
+
       {/* Top Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-16 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <header className="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-16 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden p-1.5 rounded-lg text-slate-600 hover:bg-slate-100"
+              className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100"
               aria-label="Toggle sessions sidebar"
             >
               {sidebarOpen ? <PanelLeftClose className="w-5 h-5" /> : <PanelLeftOpen className="w-5 h-5" />}
@@ -207,7 +209,7 @@ function TutorChatContent() {
 
             <Link
               href="/study"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-emerald-700 transition"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Study Hub</span>
@@ -215,65 +217,68 @@ function TutorChatContent() {
 
             <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                AI
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-bold text-xs shadow-glow-brand">
+                <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-900 leading-tight">Helpora Patient Tutor</p>
-                <p className="text-[10px] text-emerald-700 font-medium">Step-by-step guidance</p>
+                <p className="text-xs font-bold text-slate-950 leading-tight flex items-center gap-1.5">
+                  <span>Helpora Patient AI Tutor</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                </p>
+                <p className="text-[10px] text-emerald-700 font-semibold">Curriculum & Technical Trades</p>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={handleNewConversation}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition shadow-xs"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">New Session</span>
+              <span className="hidden sm:inline">New Topic</span>
             </button>
 
             <Link
               href="/study/practice"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 text-xs font-semibold transition"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 text-xs font-bold transition shadow-xs"
             >
               <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="hidden sm:inline">Quizzes</span>
+              <span className="hidden sm:inline">Practice Quizzes</span>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Main Layout: Conversation Sidebar + Chat Canvas */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 flex-1 flex gap-6 items-stretch">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-5 flex-1 flex gap-6 items-stretch">
         
         {/* Left Sidebar (Conversations History) */}
-        <aside className={`fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-slate-200 p-4 space-y-4 transform transition-transform duration-200 lg:relative lg:translate-x-0 lg:z-0 lg:rounded-2xl lg:border lg:shadow-subtle lg:h-[calc(100vh-140px)] flex flex-col justify-between ${
+        <aside className={`fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-slate-200 p-5 space-y-4 transform transition-transform duration-200 lg:relative lg:translate-x-0 lg:z-0 lg:rounded-3xl lg:border lg:shadow-elevated lg:h-[calc(100vh-150px)] flex flex-col justify-between ${
           sidebarOpen ? 'translate-x-0 top-16' : '-translate-x-full lg:translate-x-0'
         }`}>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <button
               onClick={() => { handleNewConversation(); setSidebarOpen(false); }}
-              className="w-full py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-xs"
+              className="w-full py-2.5 px-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:opacity-95 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-glow-brand"
             >
               <Plus className="w-4 h-4" />
               <span>New Conversation</span>
             </button>
 
             <div className="pt-2">
-              <p className="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2.5">
                 Recent Topics
               </p>
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 {conversations.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => { setActiveConvId(c.id); setSidebarOpen(false); }}
-                    className={`w-full text-left p-2.5 rounded-xl text-xs transition flex items-center gap-2 ${
+                    className={`w-full text-left p-3 rounded-2xl text-xs transition flex items-center gap-2.5 ${
                       activeConvId === c.id
-                        ? 'bg-emerald-50 text-emerald-900 font-bold border border-emerald-200'
+                        ? 'bg-emerald-50 text-emerald-950 font-bold border border-emerald-300 shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
@@ -285,42 +290,45 @@ function TutorChatContent() {
             </div>
           </div>
 
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1 text-slate-600">
-            <p className="font-bold text-slate-800">Helpora Study Guarantee</p>
-            <p className="text-[11px] text-slate-500 leading-tight">
-              We never give you bare answers without showing the underlying method.
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-1 text-slate-600">
+            <p className="font-bold text-slate-800 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Patient Guidance Guarantee</span>
+            </p>
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              We never give you bare answers without showing the underlying method and practical intuition.
             </p>
           </div>
         </aside>
 
         {/* Chat Area */}
-        <main className="flex-1 flex flex-col bg-white rounded-2xl border border-slate-200 shadow-subtle overflow-hidden h-[calc(100vh-140px)]">
+        <main className="flex-1 flex flex-col bg-white rounded-3xl border border-slate-200/90 shadow-elevated overflow-hidden h-[calc(100vh-150px)]">
           
           {/* Scrollable Messages Stream */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
             {messages.map((m) => {
               const isAi = m.sender === 'ai';
               return (
                 <div
                   key={m.id}
-                  className={`flex items-start gap-3 ${isAi ? 'justify-start' : 'justify-end'}`}
+                  className={`flex items-start gap-3.5 ${isAi ? 'justify-start' : 'justify-end'}`}
                 >
                   {isAi && (
-                    <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
-                      <Bot className="w-4 h-4 text-white" />
+                    <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center shrink-0 shadow-subtle mt-0.5">
+                      <Bot className="w-5 h-5 text-white" />
                     </div>
                   )}
 
                   <div
-                    className={`group relative max-w-2xl rounded-2xl p-4 text-xs sm:text-sm leading-relaxed ${
+                    className={`group relative max-w-2xl rounded-3xl p-5 text-xs sm:text-sm leading-relaxed ${
                       isAi
-                        ? 'bg-slate-50 border border-slate-200 text-slate-800'
-                        : 'bg-emerald-600 text-white shadow-xs'
+                        ? 'bg-slate-50/90 border border-slate-200/90 text-slate-800 shadow-subtle'
+                        : 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-glow-brand'
                     }`}
                   >
                     {/* Attached Image preview if sent by user */}
                     {m.image && (
-                      <div className="mb-2 max-w-xs rounded-lg overflow-hidden border border-white/20">
+                      <div className="mb-3 max-w-xs rounded-2xl overflow-hidden border border-white/20 shadow-xs">
                         <img src={m.image} alt="User attachment" className="w-full h-auto" />
                       </div>
                     )}
@@ -329,7 +337,9 @@ function TutorChatContent() {
                       {m.text}
                     </div>
 
-                    <div className="flex items-center justify-between gap-4 mt-2 pt-1 border-t border-slate-200/40 text-[10px] opacity-70">
+                    <div className={`flex items-center justify-between gap-4 mt-3 pt-2 border-t ${
+                      isAi ? 'border-slate-200/60 text-slate-400' : 'border-white/20 text-emerald-100'
+                    } text-[10px]`}>
                       <span>{m.timestamp}</span>
                       {isAi && (
                         <button
@@ -339,12 +349,12 @@ function TutorChatContent() {
                         >
                           {copiedId === m.id ? (
                             <>
-                              <Check className="w-3 h-3 text-emerald-600" />
-                              <span className="text-emerald-600 font-semibold">Copied</span>
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <span className="text-emerald-600 font-bold">Copied</span>
                             </>
                           ) : (
                             <>
-                              <Copy className="w-3 h-3" />
+                              <Copy className="w-3.5 h-3.5" />
                               <span>Copy</span>
                             </>
                           )}
@@ -354,8 +364,8 @@ function TutorChatContent() {
                   </div>
 
                   {!isAi && (
-                    <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
-                      <User className="w-4 h-4 text-slate-200" />
+                    <div className="w-9 h-9 rounded-2xl bg-slate-950 text-white flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+                      <User className="w-5 h-5 text-slate-200" />
                     </div>
                   )}
                 </div>
@@ -363,13 +373,13 @@ function TutorChatContent() {
             })}
 
             {isTyping && (
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
-                  <Bot className="w-4 h-4" />
+              <div className="flex items-start gap-3.5">
+                <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center shrink-0 shadow-subtle">
+                  <Bot className="w-5 h-5" />
                 </div>
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs text-slate-500 flex items-center gap-2">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-600" />
-                  <span>Thinking through the steps...</span>
+                <div className="bg-slate-50 border border-slate-200/90 rounded-3xl px-5 py-3.5 text-xs text-slate-500 flex items-center gap-2.5 shadow-subtle">
+                  <Loader2 className="w-4 h-4 animate-spin text-emerald-600" />
+                  <span className="font-medium">Thinking through the solution step by step...</span>
                 </div>
               </div>
             )}
@@ -378,14 +388,14 @@ function TutorChatContent() {
           </div>
 
           {/* Prompt Action Chips */}
-          <div className="p-3 border-t border-slate-100 bg-slate-50/70 overflow-x-auto flex items-center gap-1.5 no-scrollbar">
-            <span className="text-[11px] font-bold text-slate-500 shrink-0">Ask Tutor:</span>
+          <div className="p-3 border-t border-slate-100 bg-slate-50/70 overflow-x-auto flex items-center gap-2 no-scrollbar">
+            <span className="text-[11px] font-bold text-slate-500 shrink-0 pl-1">Ask Tutor:</span>
             {quickPrompts.map((p) => (
               <button
                 key={p.label}
                 type="button"
                 onClick={() => handleSend(undefined, p.action)}
-                className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:border-emerald-300 hover:text-emerald-700 text-slate-700 text-[11px] font-medium whitespace-nowrap transition shadow-xs"
+                className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-emerald-300 hover:text-emerald-800 text-slate-700 text-[11px] font-bold whitespace-nowrap transition shadow-xs"
               >
                 &ldquo;{p.label}&rdquo;
               </button>
@@ -396,8 +406,8 @@ function TutorChatContent() {
           {attachedImage && (
             <div className="px-4 py-2 bg-slate-100 border-t border-slate-200 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
-                <img src={attachedImage} alt="Attachment thumbnail" className="w-8 h-8 object-cover rounded" />
-                <span className="text-slate-600">Image attached (formula or diagram)</span>
+                <img src={attachedImage} alt="Attachment thumbnail" className="w-8 h-8 object-cover rounded-lg" />
+                <span className="text-slate-600 font-medium">Image attached (diagram or math equation)</span>
               </div>
               <button
                 type="button"
@@ -412,7 +422,7 @@ function TutorChatContent() {
           {/* Bottom Chat Input Form */}
           <form
             onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-            className="p-3 sm:p-4 border-t border-slate-200 bg-white flex items-center gap-2"
+            className="p-3 sm:p-4 border-t border-slate-200/90 bg-white flex items-center gap-2.5"
           >
             {/* Hidden File Input for diagram/homework image */}
             <input
@@ -426,7 +436,7 @@ function TutorChatContent() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-2.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+              className="p-3 rounded-2xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
               title="Attach diagram or formula photo"
             >
               <Paperclip className="w-4 h-4" />
@@ -436,14 +446,14 @@ function TutorChatContent() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a technical or academic question (e.g. Sizing a 24V inverter, quadratic formula, Ohm's law)..."
-              className="flex-1 px-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium placeholder:text-slate-400"
+              placeholder="Ask a technical or academic question (e.g. Inverter battery formula, quadratic equation, Ohm's law)..."
+              className="flex-1 px-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200/80 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
             />
 
             <button
               type="submit"
               disabled={isTyping || (!input.trim() && !attachedImage)}
-              className="p-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white rounded-xl transition shadow-xs shrink-0"
+              className="p-3 bg-gradient-to-r from-emerald-600 to-teal-700 hover:opacity-95 disabled:opacity-40 text-white rounded-2xl transition shadow-glow-brand shrink-0"
               title="Send message"
             >
               <Send className="w-4 h-4" />

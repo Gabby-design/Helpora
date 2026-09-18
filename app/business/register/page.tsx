@@ -142,37 +142,39 @@ function BusinessRegisterContent() {
 
   if (createdProviderId) {
     return (
-      <div className="min-h-screen bg-slate-50 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 max-w-xl text-center space-y-6 shadow-xl animate-fadeIn">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
+      <div className="min-h-screen bg-slate-50 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="bg-white rounded-3xl border border-slate-200/90 p-8 sm:p-12 max-w-xl text-center space-y-6 shadow-elevated-lg animate-fadeIn relative z-10">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
             <CheckCircle2 className="w-9 h-9" />
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
               Listing Submitted for Verification!
             </h2>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Your business <strong>{name}</strong> has been created with status <strong className="text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Pending Verification</strong>.
+              Your business <strong>{name}</strong> has been registered with status <strong className="text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 text-xs">Pending Verification</strong>.
             </p>
           </div>
 
-          <div className="bg-slate-50 rounded-2xl p-4 text-xs text-slate-600 text-left space-y-2 border border-slate-200">
-            <p className="font-bold text-slate-800">What happens next?</p>
+          <div className="bg-slate-50 rounded-2xl p-5 text-xs text-slate-600 text-left space-y-2.5 border border-slate-200">
+            <p className="font-bold text-slate-900 text-sm">What happens next?</p>
             <p>1. The Helpora trust & verification team cross-checks your trade registration / CAC license details.</p>
-            <p>2. Once verified, your listing receives the green <strong>Helpora Verified</strong> badge and appears in priority search results.</p>
+            <p>2. Once verified, your listing receives the green <strong>Helpora Verified</strong> badge and appears in priority search & GPS routing results.</p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
               href={`/services/provider/${createdProviderId}`}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition shadow"
+              className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs transition shadow-subtle"
             >
               View New Listing
             </Link>
             <Link
               href="/dashboard/business"
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition shadow-sm"
+              className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition shadow-glow-brand"
             >
               Go to Business Dashboard &rarr;
             </Link>
@@ -183,48 +185,51 @@ function BusinessRegisterContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto space-y-8">
+    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Decorative ambient gradient */}
+      <div className="absolute top-0 right-1/3 w-96 h-96 bg-emerald-400/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-3xl mx-auto space-y-8 relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between">
           <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition"
+            className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-emerald-700 transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back</span>
           </button>
 
-          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Zero Lead Fees &bull; Zero Commissions</span>
           </span>
         </div>
 
         <div className="space-y-2 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 uppercase tracking-wider mb-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 uppercase tracking-wider mb-1 shadow-xs">
             <Building2 className="w-3.5 h-3.5 text-emerald-600" />
-            Helpora For Business
+            <span>Helpora For Business</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
             {claimId ? 'Claim & Verify Existing Business' : 'Register Your Service Business on Helpora'}
           </h1>
-          <p className="text-sm text-slate-600">
-            Put your trade in front of customers looking for trusted local professionals near them. Direct calls, verified badges, and honest reviews.
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+            Put your trade in front of customers looking for trusted local professionals near them. Direct calls, verified badges, live road GPS routing, and transparent reviews.
           </p>
         </div>
 
         {/* Form Container */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-8">
+        <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-elevated space-y-8">
           {/* Section 1: Basic Information */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
               1. Business Details
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Business / Contractor Legal Name *
                 </label>
                 <input
@@ -233,18 +238,18 @@ function BusinessRegisterContent() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Abuja Solar & Electrical Masters"
-                  className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Service Category *
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                  className="w-full px-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold cursor-pointer"
                 >
                   {categories.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -255,13 +260,13 @@ function BusinessRegisterContent() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Metro Region *
                 </label>
                 <select
                   value={cityId}
                   onChange={(e) => setCityId(e.target.value)}
-                  className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
+                  className="w-full px-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold cursor-pointer"
                 >
                   {CITIES.map((city) => (
                     <option key={city.id} value={city.id}>
@@ -275,73 +280,73 @@ function BusinessRegisterContent() {
 
           {/* Section 2: Contact & Location */}
           <div className="space-y-4 pt-4 border-t border-slate-100">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
               2. Location & Contact
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Street Address (Headquarters or Service Workshop) *
                 </label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <MapPin className="w-4 h-4 text-emerald-600 absolute left-4 top-4" />
                   <input
                     type="text"
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="e.g. Suite 12, Banex Plaza, Aminu Kano Crescent, Wuse II, Abuja"
-                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Direct Contact Phone Number *
                 </label>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <Phone className="w-4 h-4 text-emerald-600 absolute left-4 top-4" />
                   <input
                     type="tel"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+234 803 000 0000"
-                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Business Email
                 </label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <Mail className="w-4 h-4 text-emerald-600 absolute left-4 top-4" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="support@yourdomain.ng"
-                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Website or Social Profile (Optional)
                 </label>
                 <div className="relative">
-                  <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <Globe className="w-4 h-4 text-emerald-600 absolute left-4 top-4" />
                   <input
                     type="url"
                     value={website}
                     onChange={(e) => setWebsite(e.target.value)}
                     placeholder="https://instagram.com/yourhandle"
-                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                    className="w-full pl-11 pr-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
                   />
                 </div>
               </div>
@@ -351,16 +356,16 @@ function BusinessRegisterContent() {
           {/* Section 3: Vetting & Credentials */}
           <div className="space-y-4 pt-4 border-t border-slate-100">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
                 3. Verification & Credentials
               </h3>
-              <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                 Required for Verified Badge
               </span>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
                 State Trade Registration, CAC RC Number, or Technical License
               </label>
               <input
@@ -368,7 +373,7 @@ function BusinessRegisterContent() {
                 value={licenseNumber}
                 onChange={(e) => setLicenseNumber(e.target.value)}
                 placeholder="e.g. CAC BN-3129402, NEMSA Cert #AB-8910, TRCN #912"
-                className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono"
+                className="w-full px-4 py-3 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
               />
               <p className="text-[11px] text-slate-500 mt-1">
                 Our verification team cross-checks this against regulatory databases to grant your green shield.
@@ -376,7 +381,7 @@ function BusinessRegisterContent() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
                 Business Description & Experience
               </label>
               <textarea
@@ -385,16 +390,16 @@ function BusinessRegisterContent() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe your trade background, experience with residential/commercial work, warranty guarantees..."
-                className="w-full p-3.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full p-4 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium placeholder:text-slate-400"
               />
             </div>
 
             {/* Service Tags */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1.5">
                 Specific Services Offered (Tags)
               </label>
-              <div className="flex gap-2 mb-2">
+              <div className="flex gap-2 mb-2.5">
                 <input
                   type="text"
                   value={serviceTagInput}
@@ -406,29 +411,29 @@ function BusinessRegisterContent() {
                     }
                   }}
                   placeholder="e.g. Inverter Installation, Changeover Switch, Borehole Pump"
-                  className="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="flex-1 px-4 py-2.5 text-xs sm:text-sm rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
                 />
                 <button
                   type="button"
                   onClick={handleAddService}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-semibold transition"
+                  className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-2xl text-xs font-bold transition shadow-xs"
                 >
                   Add Tag
                 </button>
               </div>
 
               {servicesList.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {servicesList.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-800 px-3 py-1 rounded-lg border border-slate-200"
+                      className="inline-flex items-center gap-2 text-xs bg-emerald-50 text-emerald-950 font-semibold px-3 py-1.5 rounded-xl border border-emerald-200"
                     >
                       <span>{tag}</span>
                       <button
                         type="button"
                         onClick={() => handleRemoveService(tag)}
-                        className="text-slate-400 hover:text-slate-600 font-bold"
+                        className="text-emerald-700 hover:text-rose-600 font-bold"
                       >
                         ×
                       </button>
@@ -444,7 +449,7 @@ function BusinessRegisterContent() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
+              className="px-5 py-3 rounded-2xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition"
             >
               Cancel
             </button>
@@ -452,7 +457,7 @@ function BusinessRegisterContent() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-md hover:shadow-lg transition"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-glow-brand transition active:scale-95"
             >
               {isSubmitting ? (
                 <Loader2 className="w-4 h-4 animate-spin text-white" />

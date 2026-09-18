@@ -18,7 +18,10 @@ import {
   Loader2,
   Star,
   CheckCircle2,
-  PhoneCall
+  PhoneCall,
+  Clock,
+  Compass,
+  Check
 } from 'lucide-react';
 import { CITIES, DEFAULT_CITY } from '@/lib/data/cities';
 import { ServiceCategory } from '@/lib/types';
@@ -125,48 +128,54 @@ export default function SearchHero() {
   };
 
   return (
-    <div className="relative bg-white text-slate-900 pt-10 sm:pt-14 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80 overflow-hidden">
-      {/* Subtle warm decorative background accent */}
-      <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-emerald-50 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-slate-50 rounded-full blur-3xl pointer-events-none" />
+    <div className="relative bg-gradient-to-b from-white via-slate-50/50 to-white text-slate-900 pt-10 sm:pt-16 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80 overflow-hidden">
+      {/* Decorative ambient lighting elements */}
+      <div className="absolute top-0 right-1/4 -mt-16 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Left Column: Headline, Description & Universal Search */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-7">
             {/* Safety Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 text-xs font-bold shadow-subtle badge-shimmer">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+              </span>
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Helpora Verified Network • Nigeria</span>
+              <span>Helpora Verified Network • Built for Nigeria</span>
             </div>
 
-            {/* Main Heading */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12]">
-              Find Trusted Help <br className="hidden sm:inline" />
-              <span className="text-emerald-700">For Everyday Needs</span>
+            {/* Main Heading with High-End Editorial Typography */}
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-slate-950 leading-[1.12]">
+              Find Trusted Help, <br className="hidden sm:inline" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700">
+                Right Near You
+              </span>
             </h1>
 
-            {/* Supporting Text */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-              Connect with trusted local professionals for services, learning, health resources, and everyday help — all in one place.
+            {/* Supporting Subhead */}
+            <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-xl leading-relaxed">
+              Connect directly with vetted local electricians, plumbers, phone & PC techs, home tutors, and verified emergency healthcare — all in one unified Nigerian marketplace.
             </p>
 
-            {/* Universal Search Box */}
+            {/* Universal Search Box - Luxury Card with Segmented Controls */}
             <form
               onSubmit={handleSearch}
-              className="bg-white rounded-2xl p-3 sm:p-4 text-slate-900 shadow-elevated border border-slate-200/90 space-y-3"
+              className="bg-white rounded-3xl p-3.5 sm:p-4 text-slate-900 shadow-elevated-lg border border-slate-200/90 space-y-3.5 relative"
             >
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
                 {/* Search Query Input */}
                 <div className="sm:col-span-12 md:col-span-5 relative">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <Search className="w-4 h-4 text-emerald-600 absolute left-3.5 top-3.5" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="What do you need help with?"
-                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium placeholder:text-slate-400"
+                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/70 font-medium placeholder:text-slate-400 transition"
                   />
                 </div>
 
@@ -175,7 +184,7 @@ export default function SearchHero() {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 text-slate-800 font-medium cursor-pointer"
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/70 text-slate-800 font-semibold cursor-pointer transition"
                   >
                     <option value="all">All Categories</option>
                     {categories.map((c) => (
@@ -188,7 +197,7 @@ export default function SearchHero() {
 
                 {/* Location Selector with 'Use my location' button */}
                 <div className="sm:col-span-6 md:col-span-4 relative flex items-center">
-                  <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                  <MapPin className="w-4 h-4 text-emerald-600 absolute left-3 top-3.5" />
                   <select
                     value={selectedCityId}
                     onChange={(e) => {
@@ -197,7 +206,7 @@ export default function SearchHero() {
                       const c = CITIES.find(city => city.id === e.target.value);
                       if (c) setLocationLabel(c.name);
                     }}
-                    className="w-full pl-9 pr-9 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 text-slate-800 font-medium appearance-none cursor-pointer"
+                    className="w-full pl-9 pr-10 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/70 text-slate-800 font-semibold appearance-none cursor-pointer transition"
                   >
                     {CITIES.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -209,29 +218,29 @@ export default function SearchHero() {
                   <button
                     type="button"
                     onClick={handleUseGeolocation}
-                    className="absolute right-2 p-1.5 text-slate-400 hover:text-emerald-700 transition"
-                    title="Use my location"
+                    className="absolute right-2.5 p-1 rounded-lg text-slate-400 hover:text-emerald-700 hover:bg-emerald-50 transition"
+                    title="Use my current GPS location"
                     aria-label="Use current location"
                   >
                     {isLocating ? (
                       <Loader2 className="w-4 h-4 animate-spin text-emerald-600" />
                     ) : (
-                      <Navigation className="w-4 h-4" />
+                      <Navigation className="w-4 h-4 text-emerald-600" />
                     )}
                   </button>
                 </div>
               </div>
 
               {/* Action row: Search Button, Scanner, and Examples */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1 border-t border-slate-100">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-slate-100">
                 <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
-                  <span className="font-semibold text-slate-700">Quick:</span>
+                  <span className="font-bold text-slate-700">Quick Help:</span>
                   {[
-                    { label: '🏥 Closest Hospital', query: 'hospital', isHealth: true },
-                    { label: '🩺 24/7 Clinic', query: 'clinic', isHealth: true },
-                    { label: 'Plumber', query: 'Find a plumber', isHealth: false },
-                    { label: 'Electrician', query: 'Electrician', isHealth: false },
-                    { label: 'Mechanic', query: 'Mechanic', isHealth: false }
+                    { label: '🏥 Closest Hospital', isHealth: true },
+                    { label: '🩺 24/7 Clinic', isHealth: true },
+                    { label: '⚡ Electrician', query: 'electrician', isHealth: false },
+                    { label: '🔧 Plumber', query: 'plumber', isHealth: false },
+                    { label: '💻 Laptop Repair', query: 'laptop', isHealth: false }
                   ].map((item) => (
                     <button
                       key={item.label}
@@ -240,10 +249,10 @@ export default function SearchHero() {
                         if (item.isHealth) {
                           router.push('/health?navigateClosest=true');
                         } else {
-                          setSearchQuery(item.query);
+                          setSearchQuery(item.query || '');
                         }
                       }}
-                      className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 text-slate-600 transition font-medium"
+                      className="px-2.5 py-1 rounded-lg bg-slate-100/80 hover:bg-emerald-50 hover:text-emerald-800 text-slate-600 transition font-medium border border-transparent hover:border-emerald-200"
                     >
                       {item.label}
                     </button>
@@ -254,16 +263,16 @@ export default function SearchHero() {
                   <button
                     type="button"
                     onClick={handleScanEnvironment}
-                    className="py-2.5 px-3.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-xs shrink-0 active:scale-95"
-                    title="Scan my location and route to the closest service or hospital"
+                    className="py-2.5 px-3.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/90 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-subtle shrink-0 active:scale-95"
+                    title="Scan current environment and route to closest help"
                   >
-                    <Navigation className="w-3.5 h-3.5 text-emerald-600" />
+                    <Compass className="w-4 h-4 text-emerald-600" />
                     <span>Scan Closest</span>
                   </button>
 
                   <button
                     type="submit"
-                    className="py-2.5 px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-xs shrink-0"
+                    className="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-sm shrink-0 active:scale-95"
                   >
                     <span>Search</span>
                     <ArrowRight className="w-4 h-4" />
@@ -271,64 +280,84 @@ export default function SearchHero() {
                 </div>
               </div>
             </form>
+
+            {/* Micro stats counter */}
+            <div className="flex flex-wrap items-center gap-6 pt-1 text-xs text-slate-500 font-medium">
+              <div className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
+                <span>Verified Nigerian Trades</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
+                <span>Zero Broker Fees</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
+                <span>Direct Phone & GPS Routing</span>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column: High-Quality Service Collage */}
+          {/* Right Column: High-Quality Service Showcase Collage */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
               {/* Main Service Visual Card */}
-              <div className="relative rounded-3xl overflow-hidden shadow-elevated border border-slate-200/80 bg-white">
+              <div className="relative rounded-3xl overflow-hidden shadow-elevated-lg border border-slate-200/80 bg-white group">
                 <img
                   src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
                   alt="Verified Nigerian Service Professional"
-                  className="w-full h-72 sm:h-80 object-cover"
+                  className="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
                 
                 {/* On-card caption */}
-                <div className="absolute bottom-4 left-4 right-4 text-white space-y-1">
+                <div className="absolute bottom-5 left-5 right-5 text-white space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10.5px] font-bold uppercase tracking-wider">
-                      Solar & Electrical
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10.5px] font-bold uppercase tracking-wider shadow-xs">
+                      Solar & Power Systems
                     </span>
-                    <span className="text-xs text-slate-200">Abuja, FCT</span>
+                    <span className="text-xs text-slate-200 font-medium">Abuja • Lagos • Nationwide</span>
                   </div>
-                  <h3 className="text-base font-bold text-white">
-                    Verified Inverter & Power System Specialists
+                  <h3 className="text-lg font-bold text-white leading-snug">
+                    Vetted Inverter Technicians & Certified Electricians
                   </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-emerald-300 font-medium">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Identity Verified • Trade Audited</span>
+                  <div className="flex items-center gap-2 text-xs text-emerald-300 font-medium pt-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <span>CAC & ID Audited • Community Recommended</span>
                   </div>
                 </div>
               </div>
 
               {/* Floating Mini Card 1: Fast Response & Rating */}
-              <div className="absolute -top-4 -left-4 sm:-left-6 bg-white rounded-2xl p-3 shadow-elevated border border-slate-200 flex items-center gap-3 animate-fadeIn">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
-                  <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+              <div className="absolute -top-4 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-elevated border border-slate-200/90 flex items-center gap-3 animate-float">
+                <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
+                  <Star className="w-6 h-6 fill-amber-400 text-amber-400" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-sm font-extrabold text-slate-900">4.9 / 5.0</span>
-                    <span className="text-[10.5px] text-slate-500 font-medium">Rating</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-base font-extrabold text-slate-900">4.9 / 5.0</span>
+                    <span className="text-[10.5px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Verified</span>
                   </div>
-                  <p className="text-[11px] text-slate-600">From verified customers</p>
+                  <p className="text-[11px] text-slate-500 font-medium">From 250+ Nigerian clients</p>
                 </div>
               </div>
 
-              {/* Floating Mini Card 2: Local Service Categories */}
-              <div className="absolute -bottom-4 -right-4 sm:-right-6 bg-white rounded-2xl p-3.5 shadow-elevated border border-slate-200 max-w-[210px] space-y-1.5 animate-fadeIn">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Verified Providers</span>
+              {/* Floating Mini Card 2: Live GPS Navigation Indicator */}
+              <div className="absolute -bottom-5 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-elevated border border-slate-200/90 max-w-[220px] space-y-1.5 animate-fadeIn">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <Compass className="w-4 h-4 text-emerald-600" />
+                  <span>Turn-by-Turn Navigator</span>
                 </div>
-                <p className="text-[11px] text-slate-600 leading-tight">
-                  Electricians, Plumbers, Tutors & Techs nearby.
+                <p className="text-[11.5px] text-slate-600 leading-snug">
+                  Real-time driving ETA & step-by-step road guidance on map.
                 </p>
-                <div className="flex items-center gap-1 text-[10.5px] text-emerald-700 font-semibold pt-0.5">
-                  <span>Direct phone & maps</span>
+                <div className="flex items-center gap-1 text-[10.5px] text-emerald-700 font-bold pt-0.5">
+                  <span>Direct contact with pros</span>
                 </div>
               </div>
 
