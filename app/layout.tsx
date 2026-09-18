@@ -5,6 +5,7 @@ import EmergencyQuickBar from '@/components/layout/EmergencyQuickBar';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import AuthModal from '@/components/auth/AuthModal';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: 'CivicTrust | Find Someone You Can Trust Near You',
@@ -35,6 +36,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <AuthModal />
+          <Analytics />
         </AuthProvider>
       </body>
     </html>
