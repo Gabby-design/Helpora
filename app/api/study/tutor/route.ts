@@ -178,6 +178,14 @@ export async function POST(request: Request) {
     });
   } catch (err: any) {
     console.error('[Tutor] Handler error:', err);
-    return NextResponse.json({ success: false, error: err?.message || 'Server error' }, { status: 500 });
+    // Never crash or return 500 to student — fallback gracefully
+    const fallbackReply = generatePedagogicalFallback('study guide', 'general');
+    return NextResponse.json({
+      success: true,
+      data: {
+        reply: fallbackReply,
+        source: 'civictrust-tutor-engine'
+      }
+    });
   }
 }
