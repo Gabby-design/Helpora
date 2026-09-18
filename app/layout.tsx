@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`h-full scroll-smooth ${jakarta.variable}`}>
+    <html lang="en" className={`h-full scroll-smooth ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -56,7 +56,10 @@ export default function RootLayout({
           crossOrigin=""
         />
       </head>
-      <body className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-emerald-600 selection:text-white">
+      <body 
+        className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-emerald-600 selection:text-white"
+        suppressHydrationWarning
+      >
         <AuthProvider>
           <EmergencyQuickBar />
           <Navbar />
