@@ -67,15 +67,15 @@ export default function HealthDetailPage() {
   if (!resource) {
     return (
       <div className="min-h-screen bg-neutral-50 flex items-center justify-center px-4">
-        <div className="bg-white p-8 rounded-2xl border border-neutral-200 text-center max-w-md shadow-sm">
+        <div className="bg-white p-8 rounded-3xl border border-neutral-200 text-center max-w-md shadow-sm">
           <Building2 className="w-12 h-12 text-neutral-300 mx-auto mb-3" />
           <h2 className="text-lg font-bold text-neutral-800">Facility Not Found</h2>
           <p className="text-xs text-neutral-500 mt-1 mb-6">
-            The healthcare listing requested could not be retrieved from the civic directory.
+            The healthcare listing requested could not be retrieved from the Helpora directory.
           </p>
           <Link
             href="/health"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 hover:bg-black text-white text-xs font-bold rounded-xl transition"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Health Directory
@@ -220,8 +220,8 @@ export default function HealthDetailPage() {
         <div className="bg-emerald-50 rounded-2xl border border-emerald-200 p-5 flex items-start gap-3">
           <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
           <div className="text-xs text-emerald-950 leading-relaxed">
-            <p className="font-bold text-emerald-900 mb-0.5">Verified Civic Listing</p>
-            This healthcare resource has been verified against official public listings in the Federal Capital Territory / Nigerian health registry. If you notice any discrepancy, please contact our community moderators.
+            <p className="font-bold text-emerald-900 mb-0.5">Helpora Verified Healthcare Resource</p>
+            This healthcare resource has been verified against official public listings in the Federal Capital Territory / Nigerian health registry. If you notice any discrepancy or emergency desk updates, please contact Helpora moderators.
           </div>
         </div>
       </div>

@@ -21,7 +21,9 @@ import {
   Bookmark,
   Search,
   Building2,
-  Home
+  Home,
+  HelpCircle,
+  Sparkles
 } from 'lucide-react';
 import { CITIES, DEFAULT_CITY } from '@/lib/data/cities';
 
@@ -44,75 +46,74 @@ export default function Navbar() {
     {
       name: 'Home',
       href: '/',
-      icon: Home,
       active: pathname === '/'
     },
     {
-      name: 'Local Services',
+      name: 'Services',
       href: '/services',
-      icon: Wrench,
       active: pathname.startsWith('/services')
     },
     {
       name: 'AI Study',
       href: '/study',
-      icon: GraduationCap,
       active: pathname.startsWith('/study')
     },
     {
       name: 'Health & Help',
       href: '/health',
-      icon: HeartPulse,
       active: pathname.startsWith('/health') || pathname.startsWith('/help-directory')
     },
     {
       name: 'Community',
       href: '/community',
-      icon: Users,
       active: pathname.startsWith('/community')
+    },
+    {
+      name: 'How It Works',
+      href: '/#how-it-works',
+      active: false
     }
   ];
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-subtle transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-3">
-            {/* Left: Brand Logo & Region Selector */}
+            {/* Left: HELPORA Brand Logo */}
             <div className="flex items-center gap-4 lg:gap-6">
-              <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-                <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-md group-hover:bg-brand-600 transition-colors">
-                  <ShieldCheck className="w-6 h-6 text-emerald-400" />
+              <Link href="/" className="flex items-center gap-2.5 group shrink-0" aria-label="Helpora Home">
+                <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs group-hover:bg-emerald-700 transition-colors">
+                  <ShieldCheck className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-extrabold text-xl tracking-tight text-slate-900 leading-none">
-                    Civic<span className="text-brand-600">Trust</span>
+                    HELP<span className="text-emerald-600">ORA</span>
                   </span>
-                  <span className="text-[10px] text-slate-500 font-semibold tracking-wide uppercase mt-0.5">
-                    Verified Civic Network
+                  <span className="text-[9.5px] text-slate-500 font-semibold tracking-wider uppercase mt-0.5">
+                    Nigeria
                   </span>
                 </div>
               </Link>
 
-              {/* City / Metro Selector */}
+              {/* City Selector Pill */}
               <div className="relative hidden md:block">
                 <button
                   type="button"
                   onClick={() => setCityDropdownOpen(!cityDropdownOpen)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50/90 text-xs font-medium text-slate-700 hover:bg-slate-100 transition"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-slate-50 text-xs font-medium text-slate-700 hover:bg-slate-100 transition"
                   aria-haspopup="listbox"
                   aria-expanded={cityDropdownOpen}
                 >
-                  <MapPin className="w-3.5 h-3.5 text-brand-600" />
-                  <span className="font-semibold">{selectedCity.name}</span>
-                  <span className="text-slate-400 text-[11px]">({selectedCity.country})</span>
+                  <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="font-medium text-slate-800">{selectedCity.name}</span>
                   <ChevronDown className="w-3 h-3 text-slate-400" />
                 </button>
 
                 {cityDropdownOpen && (
-                  <div className="absolute left-0 mt-1.5 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50 text-xs animate-fadeIn">
+                  <div className="absolute left-0 mt-1.5 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-xs animate-fadeIn">
                     <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      Select Region
+                      Select Nigerian City
                     </div>
                     {CITIES.map((city) => (
                       <button
@@ -122,14 +123,14 @@ export default function Navbar() {
                           setCityDropdownOpen(false);
                         }}
                         className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-slate-50 transition ${
-                          selectedCity.id === city.id ? 'font-bold text-brand-600 bg-brand-50/60' : 'text-slate-700'
+                          selectedCity.id === city.id ? 'font-bold text-emerald-600 bg-emerald-50/60' : 'text-slate-700'
                         }`}
                       >
                         <div>
                           <p className="font-semibold">{city.name}</p>
                           <p className="text-[10px] text-slate-400">{city.state}</p>
                         </div>
-                        {selectedCity.id === city.id && <span className="w-2 h-2 rounded-full bg-brand-600"></span>}
+                        {selectedCity.id === city.id && <span className="w-2 h-2 rounded-full bg-emerald-600"></span>}
                       </button>
                     ))}
                   </div>
@@ -139,31 +140,27 @@ export default function Navbar() {
 
             {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition ${
-                      item.active
-                        ? 'bg-slate-100 text-slate-900 shadow-xs'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                    }`}
-                  >
-                    <Icon className={`w-4 h-4 ${item.active ? 'text-brand-600' : 'text-slate-400'}`} />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition ${
+                    item.active
+                      ? 'text-emerald-700 font-semibold bg-emerald-50'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
             </nav>
 
-            {/* Right Action Tools: Search, List Business, Saved, Admin, Auth */}
+            {/* Right Action Tools: Search, List Business, Login/Profile */}
             <div className="hidden sm:flex items-center gap-2.5">
-              {/* Quick Search trigger */}
+              {/* Search Icon */}
               <Link
                 href="/services/search"
-                className="p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition"
+                className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition"
                 title="Search services"
                 aria-label="Search"
               >
@@ -173,10 +170,10 @@ export default function Navbar() {
               {/* Saved Items */}
               <Link
                 href="/saved"
-                className={`p-2 rounded-xl transition ${
+                className={`p-2 rounded-lg transition ${
                   pathname === '/saved'
-                    ? 'text-brand-600 bg-brand-50'
-                    : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
+                    ? 'text-emerald-600 bg-emerald-50'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
                 title="View saved items"
                 aria-label="Saved items"
@@ -184,41 +181,28 @@ export default function Navbar() {
                 <Bookmark className="w-4 h-4" />
               </Link>
 
-              {/* List Your Business */}
+              {/* List Your Business Button */}
               <Link
                 href="/business/register"
-                className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition"
+                className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 shadow-xs transition"
               >
-                <PlusCircle className="w-3.5 h-3.5 text-emerald-600" />
-                <span>List Business</span>
+                <PlusCircle className="w-3.5 h-3.5" />
+                <span>List Your Business</span>
               </Link>
 
-              {/* Admin Link */}
-              <Link
-                href="/admin"
-                className={`flex items-center gap-1.5 px-2.5 py-2 text-xs font-semibold rounded-xl transition ${
-                  pathname.startsWith('/admin')
-                    ? 'bg-purple-100 text-purple-800 border border-purple-300'
-                    : 'text-purple-700 hover:bg-purple-50'
-                }`}
-              >
-                <ShieldAlert className="w-3.5 h-3.5 text-purple-600" />
-                <span>Admin</span>
-              </Link>
-
-              {/* Auth Profile / Login */}
+              {/* User Profile / Login */}
               {user ? (
                 <div className="relative">
                   <button
                     type="button"
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    className="flex items-center gap-2 p-1.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 transition"
+                    className="flex items-center gap-2 p-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 transition"
                     aria-expanded={userDropdownOpen}
                   >
                     <img
                       src={user.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'}
                       alt={user.name}
-                      className="w-7 h-7 rounded-lg object-cover ring-1 ring-slate-300"
+                      className="w-7 h-7 rounded-md object-cover ring-1 ring-slate-200"
                     />
                     <div className="text-left hidden xl:block">
                       <p className="text-xs font-bold text-slate-800 leading-tight">{user.name}</p>
@@ -228,9 +212,9 @@ export default function Navbar() {
                   </button>
 
                   {userDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50 text-xs animate-fadeIn">
+                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 text-xs animate-fadeIn">
                       <div className="px-4 py-2 border-b border-slate-100">
-                        <p className="font-bold text-slate-800 text-sm">{user.name}</p>
+                        <p className="font-bold text-slate-900 text-sm">{user.name}</p>
                         <p className="text-slate-500 text-xs truncate">{user.email}</p>
                         <div className="mt-1 flex items-center gap-1.5">
                           <span
@@ -239,7 +223,7 @@ export default function Navbar() {
                                 ? 'bg-purple-100 text-purple-800'
                                 : user.role === 'provider'
                                 ? 'bg-emerald-100 text-emerald-800'
-                                : 'bg-blue-100 text-blue-800'
+                                : 'bg-slate-100 text-slate-800'
                             }`}
                           >
                             {user.role} role
@@ -247,13 +231,13 @@ export default function Navbar() {
                         </div>
                       </div>
 
-                      {/* Role switcher for easy paired testing */}
+                      {/* Role switcher for testing */}
                       <div className="px-4 py-2 border-b border-slate-100 bg-slate-50/80">
-                        <p className="text-[11px] font-medium text-slate-500 mb-1.5">Test as role:</p>
+                        <p className="text-[11px] font-medium text-slate-500 mb-1.5">Switch mode:</p>
                         <div className="grid grid-cols-3 gap-1">
                           <button
                             onClick={() => { switchRole('user'); setUserDropdownOpen(false); }}
-                            className={`px-1.5 py-1 rounded text-[11px] font-medium border ${user.role === 'user' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 border-slate-200'}`}
+                            className={`px-1.5 py-1 rounded text-[11px] font-medium border ${user.role === 'user' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-200'}`}
                           >
                             User
                           </button>
@@ -286,7 +270,7 @@ export default function Navbar() {
                           onClick={() => setUserDropdownOpen(false)}
                           className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2"
                         >
-                          <Bookmark className="w-4 h-4 text-brand-600" />
+                          <Bookmark className="w-4 h-4 text-emerald-600" />
                           <span>Saved Items</span>
                         </Link>
                         {user.role === 'provider' && (
@@ -322,15 +306,15 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => openAuthModal('signin')}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 transition shadow-sm"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition"
                 >
                   <UserIcon className="w-3.5 h-3.5" />
-                  <span>Sign In</span>
+                  <span>Login / Register</span>
                 </button>
               )}
             </div>
 
-            {/* Mobile menu hamburger button */}
+            {/* Mobile menu trigger */}
             <div className="flex lg:hidden items-center gap-1">
               <Link
                 href="/services/search"
@@ -356,14 +340,14 @@ export default function Navbar() {
           <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-4 animate-fadeIn max-h-[85vh] overflow-y-auto">
             {/* Region selection in mobile drawer */}
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <span className="text-xs text-slate-500 font-semibold">Active Region:</span>
+              <span className="text-xs text-slate-500 font-medium">Selected City:</span>
               <select
                 value={selectedCity.id}
                 onChange={(e) => {
                   const c = CITIES.find(city => city.id === e.target.value);
                   if (c) setSelectedCity(c);
                 }}
-                className="text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1"
+                className="text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5"
               >
                 {CITIES.map(c => (
                   <option key={c.id} value={c.id}>
@@ -375,31 +359,26 @@ export default function Navbar() {
 
             {/* Main Nav Links */}
             <nav className="space-y-1">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 p-3 rounded-xl text-sm font-semibold ${
-                      item.active
-                        ? 'bg-slate-100 text-slate-900 font-bold'
-                        : 'text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    <Icon className={`w-5 h-5 ${item.active ? 'text-brand-600' : 'text-slate-400'}`} />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block p-3 rounded-lg text-sm font-semibold transition ${
+                    item.active
+                      ? 'bg-emerald-50 text-emerald-800'
+                      : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
               <Link
                 href="/saved"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                className="block p-3 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
-                <Bookmark className="w-5 h-5 text-brand-600" />
-                <span>Saved Bookmarks</span>
+                Saved Items
               </Link>
             </nav>
 
@@ -408,26 +387,17 @@ export default function Navbar() {
               <Link
                 href="/business/register"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>List Your Business</span>
-              </Link>
-
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-semibold bg-purple-50 text-purple-700 border border-purple-200"
-              >
-                <ShieldAlert className="w-4 h-4" />
-                <span>Admin Portal</span>
               </Link>
 
               {user ? (
                 <div className="pt-2 border-t border-slate-100 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
+                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
                       <div>
                         <p className="text-xs font-bold text-slate-800">{user.name}</p>
                         <p className="text-[10px] text-slate-500 capitalize">{user.role}</p>
@@ -443,7 +413,7 @@ export default function Navbar() {
                   <Link
                     href="/profile"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block text-center py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-800"
+                    className="block text-center py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800"
                   >
                     View Account Profile
                   </Link>
@@ -452,7 +422,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => { setMobileMenuOpen(false); openAuthModal('signin'); }}
-                  className="w-full py-2.5 px-4 rounded-xl text-sm font-bold bg-slate-900 text-white"
+                  className="w-full py-2.5 px-4 rounded-lg text-sm font-bold bg-slate-900 text-white"
                 >
                   Sign In / Register
                 </button>
@@ -463,11 +433,11 @@ export default function Navbar() {
       </header>
 
       {/* Mobile Bottom Quick-Navigation Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1.5 px-2 flex items-center justify-around shadow-lg">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1 px-2 flex items-center justify-around shadow-lg">
         <Link
           href="/services"
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg text-[10.5px] font-semibold transition ${
-            pathname.startsWith('/services') ? 'text-brand-600 font-bold' : 'text-slate-500'
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10.5px] font-medium transition ${
+            pathname.startsWith('/services') ? 'text-emerald-600 font-bold' : 'text-slate-500'
           }`}
         >
           <Wrench className="w-4 h-4" />
@@ -475,8 +445,8 @@ export default function Navbar() {
         </Link>
         <Link
           href="/study"
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg text-[10.5px] font-semibold transition ${
-            pathname.startsWith('/study') ? 'text-brand-600 font-bold' : 'text-slate-500'
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10.5px] font-medium transition ${
+            pathname.startsWith('/study') ? 'text-emerald-600 font-bold' : 'text-slate-500'
           }`}
         >
           <GraduationCap className="w-4 h-4" />
@@ -484,8 +454,8 @@ export default function Navbar() {
         </Link>
         <Link
           href="/health"
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg text-[10.5px] font-semibold transition ${
-            pathname.startsWith('/health') ? 'text-brand-600 font-bold' : 'text-slate-500'
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10.5px] font-medium transition ${
+            pathname.startsWith('/health') ? 'text-emerald-600 font-bold' : 'text-slate-500'
           }`}
         >
           <HeartPulse className="w-4 h-4" />
@@ -493,8 +463,8 @@ export default function Navbar() {
         </Link>
         <Link
           href="/community"
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg text-[10.5px] font-semibold transition ${
-            pathname.startsWith('/community') ? 'text-brand-600 font-bold' : 'text-slate-500'
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10.5px] font-medium transition ${
+            pathname.startsWith('/community') ? 'text-emerald-600 font-bold' : 'text-slate-500'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -508,8 +478,8 @@ export default function Navbar() {
               openAuthModal('signin');
             }
           }}
-          className={`flex flex-col items-center gap-1 py-1 px-2 rounded-lg text-[10.5px] font-semibold transition ${
-            pathname.startsWith('/profile') ? 'text-brand-600 font-bold' : 'text-slate-500'
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10.5px] font-medium transition ${
+            pathname.startsWith('/profile') ? 'text-emerald-600 font-bold' : 'text-slate-500'
           }`}
         >
           <UserIcon className="w-4 h-4" />

@@ -6,7 +6,7 @@ export const CATEGORIES: ServiceCategory[] = [
     name: 'Electrician',
     slug: 'electrician',
     iconName: 'Zap',
-    description: 'Electrical wiring, inverter & solar installations, distribution boards, generator ATS & lighting.',
+    description: 'Solar inverter installations, wiring, distribution panels, generator changeovers, and electrical troubleshooting.',
     commonServices: [
       'Inverter & Solar Installation',
       'Generator Changeover Switch (ATS)',
@@ -23,7 +23,7 @@ export const CATEGORIES: ServiceCategory[] = [
     name: 'Plumber',
     slug: 'plumber',
     iconName: 'Wrench',
-    description: 'Borehole systems, water pumping machines, plumbing pipes, leak detection, and sanitary fittings.',
+    description: 'Borehole pumping machines, overhead tanks, piping repairs, bathroom sanitary fittings, and leak detection.',
     commonServices: [
       'Borehole & Submersible Pump Installation',
       'Overhead Water Tank & Float Switch Setup',
@@ -40,7 +40,7 @@ export const CATEGORIES: ServiceCategory[] = [
     name: 'Mechanic',
     slug: 'mechanic',
     iconName: 'Car',
-    description: 'Auto diagnostics, engine overhauls, brake pads, suspension repair, and routine vehicle servicing.',
+    description: 'Auto diagnostics, engine overhauls, brake pad replacements, suspension work, and vehicle routine maintenance.',
     commonServices: [
       'OBD-II Computer Diagnostics',
       'Brake Pad Replacement & Bleeding',
@@ -57,7 +57,7 @@ export const CATEGORIES: ServiceCategory[] = [
     name: 'Phone & Laptop Repair',
     slug: 'phone-laptop',
     iconName: 'Smartphone',
-    description: 'Smartphone screen replacement, laptop battery swaps, board-level micro-soldering, and data recovery.',
+    description: 'Screen replacements, laptop battery swaps, logic board micro-soldering, data recovery, and malware removal.',
     commonServices: [
       'iPhone, Samsung & Android Screen Replacement',
       'Laptop Battery, Keyboard & Screen Fixes',
@@ -71,10 +71,10 @@ export const CATEGORIES: ServiceCategory[] = [
   },
   {
     id: 'cleaner',
-    name: 'Cleaner',
+    name: 'Cleaning',
     slug: 'cleaner',
     iconName: 'Sparkles',
-    description: 'Post-construction cleaning, deep home sanitization, fumigation, upholstery steaming, and office upkeep.',
+    description: 'Post-construction cleaning, deep home sanitization, fumigation, upholstery steam cleaning, and office upkeep.',
     commonServices: [
       'Deep Residential Cleaning',
       'Post-Construction Cleanup',
@@ -88,14 +88,14 @@ export const CATEGORIES: ServiceCategory[] = [
   },
   {
     id: 'tutor',
-    name: 'Tutor',
+    name: 'Tutoring',
     slug: 'tutor',
     iconName: 'GraduationCap',
-    description: 'One-on-one academic tutoring, WAEC/JAMB/UTME prep, coding instruction, and professional exam coaching.',
+    description: 'One-on-one academic tutoring, WAEC/JAMB/UTME preparation, coding instruction, and professional coaching.',
     commonServices: [
       'WAEC, NECO & JAMB/UTME Preparation',
       'Primary & Secondary Math & Sciences',
-      'Python, Web Development & Scratch Coding',
+      'Python, Web Development & Coding',
       'English Diction, Phonics & Essay Writing',
       'IGCSE, SAT & Cambridge Checkpoint Tutoring',
       'Adult Literacy & Digital Skills'
@@ -104,11 +104,87 @@ export const CATEGORIES: ServiceCategory[] = [
     sortOrder: 6
   },
   {
+    id: 'beauty',
+    name: 'Beauty & Hair',
+    slug: 'beauty',
+    iconName: 'Scissors',
+    description: 'Barbing, bridal hairstyling, manicure & pedicure, skin treatments, and makeup artistry.',
+    commonServices: [
+      'Gentlemen Grooming & Barbing',
+      'Braids, Wigs & Hair Styling',
+      'Nails, Manicure & Pedicure',
+      'Bridal & Event Makeup',
+      'Facials & Skincare Therapies'
+    ],
+    active: true,
+    sortOrder: 7
+  },
+  {
+    id: 'moving',
+    name: 'Moving & Logistics',
+    slug: 'moving',
+    iconName: 'Truck',
+    description: 'Home relocation, packing services, furniture moving trucks, and inter-city dispatch.',
+    commonServices: [
+      'Residential Relocation & Moving',
+      'Office Furniture Haulage',
+      'Fragile Items Packaging & Crating',
+      'Inter-state Luggage Delivery'
+    ],
+    active: true,
+    sortOrder: 8
+  },
+  {
+    id: 'catering',
+    name: 'Catering & Events',
+    slug: 'catering',
+    iconName: 'Utensils',
+    description: 'Event catering, small chops, custom cakes, private chefs, and corporate meal deliveries.',
+    commonServices: [
+      'Corporate Lunch Catering',
+      'Wedding & Party Buffet Catering',
+      'Small Chops & Finger Foods',
+      'Custom Birthday Cakes'
+    ],
+    active: true,
+    sortOrder: 9
+  },
+  {
+    id: 'photography',
+    name: 'Photography & Video',
+    slug: 'photography',
+    iconName: 'Camera',
+    description: 'Portrait studio sessions, wedding coverage, drone cinematography, and product photography.',
+    commonServices: [
+      'Studio & Outdoor Portrait Sessions',
+      'Wedding & Event Video Coverage',
+      'E-commerce Product Photography',
+      'Aerial Drone Videography'
+    ],
+    active: true,
+    sortOrder: 10
+  },
+  {
+    id: 'fitness',
+    name: 'Fitness & Wellness',
+    slug: 'fitness',
+    iconName: 'Activity',
+    description: 'Personal gym trainers, weight loss coaches, home yoga instructors, and nutrition plans.',
+    commonServices: [
+      'One-on-One Gym Personal Training',
+      'Home Aerobics & HIIT Coaching',
+      'Custom Meal Planning & Diet Prep',
+      'Yoga & Flexibility Sessions'
+    ],
+    active: true,
+    sortOrder: 11
+  },
+  {
     id: 'other',
-    name: 'Other Trades & Handyman',
+    name: 'Handyman & Trades',
     slug: 'other',
     iconName: 'Hammer',
-    description: 'Carpentry, painting, air conditioning, POP ceiling design, welding, and general facility maintenance.',
+    description: 'Carpentry, painting, air conditioning, POP ceiling design, welding, and facility maintenance.',
     commonServices: [
       'Air Conditioner Installation & Gas Servicing',
       'POP Ceiling Installation & Painting',
@@ -118,7 +194,7 @@ export const CATEGORIES: ServiceCategory[] = [
       'General Handyman & Furniture Assembly'
     ],
     active: true,
-    sortOrder: 7
+    sortOrder: 12
   }
 ];
 

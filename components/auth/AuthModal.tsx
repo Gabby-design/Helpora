@@ -36,7 +36,7 @@ export default function AuthModal() {
 
   const handleQuickLogin = async (type: 'user' | 'provider' | 'admin') => {
     if (type === 'admin') {
-      await login('admin@civictrust.org');
+      await login('admin@helpora.ng');
     } else if (type === 'provider') {
       await login('provider.voltcraft@example.com');
     } else {
@@ -53,14 +53,14 @@ export default function AuthModal() {
         aria-labelledby="auth-modal-title"
       >
         {/* Header decoration */}
-        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-brand-900 px-6 py-5 text-white flex items-center justify-between">
+        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 px-6 py-5 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
               <h2 id="auth-modal-title" className="font-semibold text-lg leading-tight">
-                {mode === 'signin' ? 'Sign in to CivicTrust' : 'Create CivicTrust Account'}
+                {mode === 'signin' ? 'Sign in to Helpora' : 'Create Helpora Account'}
               </h2>
               <p className="text-xs text-slate-300">One shared identity across all community tools</p>
             </div>
@@ -222,7 +222,7 @@ export default function AuthModal() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm rounded-xl transition shadow-sm hover:shadow"
+              className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl transition shadow-sm hover:shadow"
             >
               {isSubmitting ? 'Processing...' : mode === 'signin' ? 'Sign In' : 'Create Account'}
             </button>
@@ -232,7 +232,7 @@ export default function AuthModal() {
             <button
               type="button"
               onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}
-              className="text-xs text-brand-600 hover:text-brand-700 font-medium hover:underline"
+              className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold hover:underline"
             >
               {mode === 'signin'
                 ? "Don't have an account yet? Register here"

@@ -105,7 +105,7 @@ export default function ProviderProfilePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           provider_id: id,
-          author: reviewerName.trim() || 'Verified Client',
+          author: reviewerName.trim() || 'Verified Customer',
           rating: rating,
           text: reviewText.trim()
         })
@@ -115,7 +115,7 @@ export default function ProviderProfilePage() {
       if (json.success) {
         setReviewText('');
         setReviewerName('');
-        setReviewSuccessMsg('Your honest review has been posted to the community record!');
+        setReviewSuccessMsg('Your honest review has been posted to the Helpora community!');
         await fetchProvider();
       } else {
         alert(json.error || 'Failed to submit review');
@@ -148,8 +148,8 @@ export default function ProviderProfilePage() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
         <div className="text-center space-y-3">
-          <Loader2 className="w-8 h-8 animate-spin text-brand-600 mx-auto" />
-          <p className="text-sm font-semibold text-slate-700">Loading verified pro details...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-emerald-600 mx-auto" />
+          <p className="text-sm font-semibold text-slate-700">Loading verified professional details...</p>
         </div>
       </div>
     );
@@ -186,7 +186,7 @@ export default function ProviderProfilePage() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
-      {/* Top Breadcrumb & Share Bar */}
+      {/* Top Breadcrumb & Quick Actions Bar */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
           <button
@@ -194,7 +194,7 @@ export default function ProviderProfilePage() {
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Back to Directory</span>
+            <span>Back to Services</span>
           </button>
 
           <div className="flex items-center gap-2">
@@ -202,11 +202,11 @@ export default function ProviderProfilePage() {
               onClick={handleToggleSave}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition ${
                 isSaved
-                  ? 'bg-brand-50 border-brand-300 text-brand-700'
+                  ? 'bg-emerald-50 border-emerald-300 text-emerald-800 font-semibold'
                   : 'border-slate-200 text-slate-700 hover:bg-slate-50'
               }`}
             >
-              <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-brand-600 text-brand-600' : ''}`} />
+              <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-emerald-600 text-emerald-600' : ''}`} />
               <span>{isSaved ? 'Saved' : 'Save'}</span>
             </button>
 
@@ -228,7 +228,7 @@ export default function ProviderProfilePage() {
             {/* Business Header Card */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700">
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800">
                   {category?.name || provider.category}
                 </span>
 
@@ -236,19 +236,19 @@ export default function ProviderProfilePage() {
                 {provider.is_demo && (
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
                     <FlaskConical className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Sample Demo Listing</span>
+                    <span>Demo Record</span>
                   </span>
                 )}
 
                 {isVerified ? (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span>Verified Professional</span>
+                    <span>Helpora Verified</span>
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
                     <AlertTriangle className="w-3.5 h-3.5 text-slate-400" />
-                    <span>Unverified Profile</span>
+                    <span>Registered Provider</span>
                   </span>
                 )}
 
@@ -259,7 +259,7 @@ export default function ProviderProfilePage() {
                 )}
               </div>
 
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+              <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-950 tracking-tight mb-2">
                 {provider.name}
               </h1>
 
@@ -270,7 +270,7 @@ export default function ProviderProfilePage() {
                     {provider.avg_rating > 0 ? provider.avg_rating.toFixed(1) : 'New'}
                   </span>
                   <span className="text-xs text-amber-800">
-                    ({provider.review_count} community {provider.review_count === 1 ? 'review' : 'reviews'})
+                    ({provider.review_count} {provider.review_count === 1 ? 'review' : 'reviews'})
                   </span>
                 </div>
 
@@ -300,7 +300,7 @@ export default function ProviderProfilePage() {
                           onClick={() => setActivePhotoIndex(idx)}
                           className={`relative w-20 h-14 rounded-xl overflow-hidden border-2 transition shrink-0 ${
                             activePhotoIndex === idx
-                              ? 'border-brand-600 ring-2 ring-brand-500/20'
+                              ? 'border-emerald-600 ring-2 ring-emerald-500/20'
                               : 'border-transparent opacity-70 hover:opacity-100'
                           }`}
                         >
@@ -315,7 +315,7 @@ export default function ProviderProfilePage() {
               {/* Description */}
               <div className="prose prose-slate max-w-none text-sm leading-relaxed text-slate-700">
                 <h3 className="text-base font-bold text-slate-900 mb-2">About this Provider</h3>
-                <p>{provider.description || 'Experienced local trade provider verified through CivicTrust.'}</p>
+                <p>{provider.description || 'Experienced local professional serving clients through Helpora.'}</p>
               </div>
 
               {/* Services Offered */}
@@ -337,7 +337,7 @@ export default function ProviderProfilePage() {
             {/* Weekly Operating Hours */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
               <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-brand-600" />
+                <Clock className="w-5 h-5 text-emerald-600" />
                 <span>Weekly Hours of Operation</span>
               </h3>
 
@@ -351,13 +351,13 @@ export default function ProviderProfilePage() {
                     <div
                       key={day}
                       className={`py-2.5 px-3 flex items-center justify-between text-xs sm:text-sm rounded-lg ${
-                        isToday ? 'bg-brand-50/80 font-bold text-brand-900' : 'text-slate-700'
+                        isToday ? 'bg-emerald-50/80 font-bold text-emerald-950' : 'text-slate-700'
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         <span>{formattedDay}</span>
                         {isToday && (
-                          <span className="text-[10px] uppercase font-extrabold tracking-wider bg-brand-600 text-white px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] uppercase font-extrabold tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded-full">
                             Today
                           </span>
                         )}
@@ -383,7 +383,7 @@ export default function ProviderProfilePage() {
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-emerald-600" />
-                  <span>Neighbor Reviews ({provider.reviews?.length || 0})</span>
+                  <span>Customer Reviews ({provider.reviews?.length || 0})</span>
                 </h3>
 
                 <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
@@ -396,9 +396,9 @@ export default function ProviderProfilePage() {
 
               {/* Review Submission Form */}
               <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-4">
-                <h4 className="text-sm font-bold text-slate-900">Leave an Honest Community Review</h4>
+                <h4 className="text-sm font-bold text-slate-900">Leave a Review</h4>
                 <p className="text-xs text-slate-500">
-                  Did this provider work on your home or car? Share your direct experience to help your neighbors.
+                  Have you hired this professional? Share your experience to help other Helpora users.
                 </p>
 
                 {reviewSuccessMsg && (
@@ -418,7 +418,7 @@ export default function ProviderProfilePage() {
                         value={reviewerName}
                         onChange={(e) => setReviewerName(e.target.value)}
                         placeholder="e.g. Kelechi O."
-                        className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                        className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                       />
                     </div>
 
@@ -458,22 +458,22 @@ export default function ProviderProfilePage() {
                       rows={3}
                       value={reviewText}
                       onChange={(e) => setReviewText(e.target.value)}
-                      placeholder="Describe what work was performed, promptness, transparency of price, and overall quality..."
-                      className="w-full p-3 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+                      placeholder="Describe what work was performed, promptness, and overall satisfaction..."
+                      className="w-full p-3 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmittingReview}
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition shadow-xs"
                   >
                     {isSubmittingReview ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
                     ) : (
-                      <Send className="w-3.5 h-3.5 text-emerald-400" />
+                      <Send className="w-3.5 h-3.5 text-white" />
                     )}
-                    <span>Post Review</span>
+                    <span>Submit Review</span>
                   </button>
                 </form>
               </div>
@@ -482,7 +482,7 @@ export default function ProviderProfilePage() {
               <div className="space-y-4 pt-2">
                 {!provider.reviews || provider.reviews.length === 0 ? (
                   <p className="text-xs text-slate-400 italic text-center py-4">
-                    Be the first neighbor to leave a review for {provider.name}.
+                    Be the first customer to leave a review for {provider.name}.
                   </p>
                 ) : (
                   provider.reviews.map((rev) => (
@@ -529,12 +529,12 @@ export default function ProviderProfilePage() {
           {/* Right Column: Contact & Quick Actions Card */}
           <div className="lg:col-span-4 space-y-6">
             <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm sticky top-24 space-y-6">
-              <h3 className="text-base font-bold text-slate-900">Direct Contact & Booking</h3>
+              <h3 className="text-base font-bold text-slate-900">Direct Contact</h3>
 
               {/* Phone CTA */}
               <a
                 href={`tel:${provider.phone.replace(/[^0-9+]/g, '')}`}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-xs transition"
               >
                 <Phone className="w-4 h-4" />
                 <span>Call {provider.phone}</span>
@@ -545,10 +545,10 @@ export default function ProviderProfilePage() {
                 href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 font-semibold text-sm transition"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm transition"
               >
-                <Navigation className="w-4 h-4 text-brand-600" />
-                <span>Open Directions in Map</span>
+                <Navigation className="w-4 h-4 text-emerald-600" />
+                <span>Directions on Map</span>
               </a>
 
               {/* Location details */}
@@ -556,7 +556,7 @@ export default function ProviderProfilePage() {
                 <div className="flex items-start gap-2 text-slate-700">
                   <MapPin className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-semibold block">Service Location</span>
+                    <span className="font-semibold block">Address</span>
                     <span>{provider.address}</span>
                   </div>
                 </div>
@@ -568,7 +568,7 @@ export default function ProviderProfilePage() {
                       href={provider.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-600 hover:underline truncate"
+                      className="text-emerald-700 hover:underline truncate"
                     >
                       {provider.website.replace('https://', '')}
                     </a>
@@ -580,16 +580,16 @@ export default function ProviderProfilePage() {
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
                 <div className="flex items-center gap-1.5 font-bold text-slate-900">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>CivicTrust Audit Record</span>
+                  <span>Helpora Verification Status</span>
                 </div>
                 <p className="text-slate-500 leading-relaxed">
                   {isVerified ? (
                     <>
-                      Verified by CivicTrust administrators on <strong>{provider.verified_date || 'Recent audit'}</strong>. Verified against regulatory trade records.
+                      Verified listing. Verified against business registration records.
                     </>
                   ) : (
                     <>
-                      This profile was registered directly and is awaiting formal license verification.
+                      This profile is registered on Helpora and undergoing standard verification.
                     </>
                   )}
                 </p>
@@ -599,7 +599,7 @@ export default function ProviderProfilePage() {
               <div className="space-y-2 text-center pt-2 border-t border-slate-100">
                 <Link
                   href={`/business/register?claim=${provider.id}`}
-                  className="block text-xs text-brand-600 hover:underline font-semibold"
+                  className="block text-xs text-emerald-700 hover:underline font-semibold"
                 >
                   Do you own this business? Claim this listing →
                 </Link>
@@ -609,7 +609,7 @@ export default function ProviderProfilePage() {
                   className="text-[11px] text-slate-400 hover:text-rose-600 inline-flex items-center gap-1"
                 >
                   <Flag className="w-3 h-3" />
-                  <span>Report inaccurate information</span>
+                  <span>Report listing issue</span>
                 </button>
 
                 {isReporting && (
@@ -617,9 +617,9 @@ export default function ProviderProfilePage() {
                     <p className="text-[11px] text-slate-600 font-semibold">Report Listing Issue:</p>
                     <button
                       onClick={handleReportListing}
-                      className="w-full py-1 bg-rose-600 text-white rounded text-[11px] font-bold"
+                      className="w-full py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-[11px] font-bold"
                     >
-                      {reportSubmitted ? 'Report Logged — Thank you' : 'Submit Inaccuracy Report'}
+                      {reportSubmitted ? 'Report Logged — Thank you' : 'Confirm & Submit Report'}
                     </button>
                   </div>
                 )}

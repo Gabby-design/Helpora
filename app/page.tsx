@@ -3,400 +3,694 @@
 import React, { useState, useEffect } from 'react';
 import SearchHero from '@/components/services/SearchHero';
 import ProviderCard from '@/components/services/ProviderCard';
-import { Provider } from '@/lib/types';
+import { Provider, ServiceCategory } from '@/lib/types';
 import { 
   ShieldCheck, 
-  Sparkles, 
   GraduationCap, 
   HeartPulse, 
   ArrowRight, 
   CheckCircle2, 
   Users, 
-  Compass, 
   HelpCircle,
   Building2,
   BookOpen,
   PlusCircle,
-  Clock,
   PhoneCall,
   Search,
-  Check
+  Check,
+  Star,
+  MapPin,
+  Sparkles,
+  Zap,
+  Wrench,
+  Car,
+  Smartphone,
+  Scissors,
+  Truck,
+  Utensils,
+  Camera,
+  Activity,
+  Hammer,
+  Shield,
+  FileCheck2,
+  Lock,
+  Flag,
+  ArrowUpRight
 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const [featuredProviders, setFeaturedProviders] = useState<Provider[]>([]);
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [categories, setCategories] = useState<ServiceCategory[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/providers')
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success && Array.isArray(json.data)) {
-          // Show verified or sample providers
-          setFeaturedProviders(json.data.slice(0, 3));
+    Promise.all([
+      fetch('/api/providers').then(r => r.json()),
+      fetch('/api/categories').then(r => r.json())
+    ])
+      .then(([provData, catData]) => {
+        if (provData.success && Array.isArray(provData.data)) {
+          setProviders(provData.data);
+        }
+        if (catData.success && Array.isArray(catData.data)) {
+          setCategories(catData.data);
         }
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
   }, []);
 
+  const iconMap: { [key: string]: any } = {
+    Zap,
+    Wrench,
+    Car,
+    Smartphone,
+    Sparkles,
+    GraduationCap,
+    Scissors,
+    Truck,
+    Utensils,
+    Camera,
+    Activity,
+    Hammer
+  };
+
+  // Category imagery for rich visual cards
+  const categoryImages: { [key: string]: string } = {
+    cleaner: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80',
+    tutor: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80',
+    'phone-laptop': 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80',
+    electrician: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80',
+    plumber: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=600&q=80',
+    mechanic: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80',
+    beauty: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80',
+    moving: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
+    catering: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=600&q=80',
+    photography: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80',
+    fitness: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80',
+    other: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80'
+  };
+
+  // Filtered providers for discovery
+  const filteredProviders = selectedCategory === 'all'
+    ? providers
+    : providers.filter(p => p.category === selectedCategory);
+
+  const featuredProviders = providers.slice(0, 3);
+
+  // Real provider counts per category
+  const getProviderCount = (categoryId: string) => {
+    const count = providers.filter(p => p.category === categoryId).length;
+    return count > 0 ? `${count} available` : null;
+  };
+
   return (
-    <div className="space-y-16 pb-20">
-      {/* 1. Universal Search Hero & Category Bar */}
+    <div className="space-y-16 sm:space-y-24 pb-20">
+      
+      {/* 1. HERO SECTION */}
       <SearchHero />
 
-      {/* 2. Three Core Pillars Overview Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
-            One Civic Platform
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2">
-            Three Essential Pillars in One Account
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            CivicTrust integrates trusted local trade services, AI student learning, and community health access.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Pillar 1: Local Services */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 hover:border-emerald-300 hover:shadow-lg transition flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200">
-                <ShieldCheck className="w-6 h-6" />
+      {/* 2. TRUST STRIP (Immediately below Hero) */}
+      <section className="border-y border-slate-200/80 bg-slate-50 py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center sm:text-left">
+            
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100/80 text-emerald-800 flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-emerald-700" />
               </div>
               <div>
-                <span className="text-xs font-bold text-emerald-700 uppercase tracking-wide">Pillar 1 • Local Trades</span>
-                <h3 className="text-xl font-bold text-slate-900 mt-0.5">Local Services</h3>
+                <p className="text-xs font-bold text-slate-900">Verified Providers</p>
+                <p className="text-[11px] text-slate-500">Identity & trade checked</p>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Find licensed electricians, borehole technicians, mechanics, phone repairers, cleaners, and tutors verified against official registration records.
-              </p>
-              <ul className="space-y-1.5 text-xs text-slate-600 pt-1">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Verified credentials & trade licenses</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Honest community ratings & proximity</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Zero lead fees or job commissions</span>
-                </li>
-              </ul>
             </div>
 
-            <Link
-              href="/services"
-              className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-sm transition"
-            >
-              <span>Find Local Services</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Pillar 2: AI Study */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 hover:border-amber-300 hover:shadow-lg transition flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200">
-                <GraduationCap className="w-6 h-6" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100/80 text-emerald-800 flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-emerald-700" />
               </div>
               <div>
-                <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">Pillar 2 • Education</span>
-                <h3 className="text-xl font-bold text-slate-900 mt-0.5">AI Study & Prep</h3>
+                <p className="text-xs font-bold text-slate-900">Local Professionals</p>
+                <p className="text-[11px] text-slate-500">Serving your neighborhood</p>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Learn at your own pace with our patient AI tutor. Access step-by-step math derivations, electrical trade cheat sheets, and interactive practice exams.
-              </p>
-              <ul className="space-y-1.5 text-xs text-slate-600 pt-1">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Patient AI explanations (never just answers)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Instant-feedback drills with explanations</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Curated formulas, guides & study materials</span>
-                </li>
-              </ul>
             </div>
 
-            <Link
-              href="/study"
-              className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow-sm transition"
-            >
-              <span>Start Learning with AI</span>
-              <ArrowRight className="w-4 h-4 text-amber-400" />
-            </Link>
-          </div>
-
-          {/* Pillar 3: Health & Help */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 hover:border-rose-300 hover:shadow-lg transition flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center border border-rose-200">
-                <HeartPulse className="w-6 h-6" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100/80 text-emerald-800 flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-emerald-700" />
               </div>
               <div>
-                <span className="text-xs font-bold text-rose-700 uppercase tracking-wide">Pillar 3 • Community Care</span>
-                <h3 className="text-xl font-bold text-slate-900 mt-0.5">Health & Help</h3>
+                <p className="text-xs font-bold text-slate-900">Transparent Ratings</p>
+                <p className="text-[11px] text-slate-500">Real customer feedback</p>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Find essential care when every second matters. Locate 24/7 trauma hospitals, accredited community pharmacies, and urgent lines in your city.
-              </p>
-              <ul className="space-y-1.5 text-xs text-slate-600 pt-1">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-600" />
-                  <span>Verified 24/7 emergency care tags</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-600" />
-                  <span>Proximity sorting and direct phone taps</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-600" />
-                  <span>Turn-by-turn navigation mapping</span>
-                </li>
-              </ul>
             </div>
 
-            <Link
-              href="/health"
-              className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-rose-700 hover:bg-rose-800 text-white font-bold text-xs sm:text-sm shadow-sm transition"
-            >
-              <span>Find Health & Emergency Help</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100/80 text-emerald-800 flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-emerald-700" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">Easy Contact</p>
+                <p className="text-[11px] text-slate-500">Call & get map directions</p>
+              </div>
+            </div>
+
+            <div className="col-span-2 md:col-span-1 flex items-center gap-2.5 justify-center sm:justify-start">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100/80 text-emerald-800 flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-emerald-700" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-900">Community-Focused</p>
+                <p className="text-[11px] text-slate-500">Built for Nigeria</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* 3. Featured Verified Local Providers */}
-      {featuredProviders.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      {/* 3. POPULAR SERVICES (Visual Category Grid) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">
+              Marketplace Categories
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mt-2">
+              Popular Services
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Browse trusted trades and essential local service providers near you.
+            </p>
+          </div>
+
+          <Link
+            href="/services"
+            className="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 group"
+          >
+            <span>View All Categories</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {categories.slice(0, 8).map((cat) => {
+            const Icon = iconMap[cat.iconName] || Wrench;
+            const count = getProviderCount(cat.id);
+            const image = categoryImages[cat.id] || categoryImages.other;
+
+            return (
+              <Link
+                key={cat.id}
+                href={`/services/search?category=${cat.id}`}
+                className="group relative rounded-2xl overflow-hidden border border-slate-200/90 bg-white hover:border-emerald-500/50 hover:shadow-card-hover transition-all duration-300 flex flex-col"
+              >
+                {/* Image top with aspect ratio */}
+                <div className="relative h-36 w-full overflow-hidden bg-slate-100">
+                  <img
+                    src={image}
+                    alt={cat.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-black/10 to-transparent" />
+                  
+                  {/* Floating Icon */}
+                  <div className="absolute top-3 left-3 w-8 h-8 rounded-lg bg-white/95 backdrop-blur-sm flex items-center justify-center text-emerald-700 shadow-xs">
+                    <Icon className="w-4 h-4" />
+                  </div>
+
+                  {count && (
+                    <span className="absolute bottom-2.5 right-3 text-[10.5px] font-semibold text-white bg-slate-900/80 backdrop-blur-sm px-2 py-0.5 rounded">
+                      {count}
+                    </span>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+                      {cat.description}
+                    </p>
+                  </div>
+                  <div className="pt-3 mt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-700">
+                    <span>Find specialists</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 4. SERVICE DISCOVERY & FEATURED PROVIDERS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 mb-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Featured Listings</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Vetted Local Services in Abuja
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/60 px-2.5 py-1 rounded-md">
+                Verified Local Talent
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mt-2">
+                Trusted Professionals Near You
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Audited credentials, live operating hours, and verified community reviews.
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Whatever you need, find someone nearby with verified ratings and direct contact.
               </p>
             </div>
 
             <Link
               href="/services/search"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-600 hover:text-brand-700 transition"
+              className="py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-xs self-start sm:self-auto"
             >
-              <span>Explore All Verified Pros</span>
-              <ArrowRight className="w-4 h-4" />
+              Explore All Listings
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProviders.map((provider) => (
-              <ProviderCard key={provider.id} provider={provider} />
+          {/* Quick Filter Category Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-4 mb-6 no-scrollbar">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold shrink-0 transition ${
+                selectedCategory === 'all'
+                  ? 'bg-slate-950 text-white'
+                  : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+              }`}
+            >
+              All Providers
+            </button>
+            {categories.slice(0, 6).map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setSelectedCategory(c.id)}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold shrink-0 transition ${
+                  selectedCategory === c.id
+                    ? 'bg-emerald-700 text-white'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+                }`}
+              >
+                {c.name}
+              </button>
             ))}
           </div>
-        </section>
-      )}
 
-      {/* 4. Community Module Spotlight */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-950 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-slate-700/60">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/20 text-teal-300 border border-teal-400/30">
-                <Users className="w-3.5 h-3.5 text-teal-400" />
-                <span>Civic Action & Community Voice</span>
-              </span>
-
-              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-                Report neighborhood problems. Join volunteer efforts.
-              </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                CivicTrust isn't just a business directory. Citizens can publicly log local infrastructure issues (damaged roads, broken streetlights, water pipe bursts) and sign up for neighborhood cleanup and youth mentoring drives.
+          {/* Provider Results Grid */}
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-72 bg-white rounded-2xl animate-pulse border border-slate-200 p-5 space-y-4">
+                  <div className="h-32 bg-slate-100 rounded-xl" />
+                  <div className="h-4 bg-slate-100 rounded w-3/4" />
+                  <div className="h-3 bg-slate-100 rounded w-1/2" />
+                </div>
+              ))}
+            </div>
+          ) : filteredProviders.length === 0 ? (
+            <div className="text-center py-12 px-4 bg-white rounded-2xl border border-slate-200 space-y-3">
+              <Building2 className="w-10 h-10 text-slate-400 mx-auto" />
+              <h3 className="text-base font-bold text-slate-800">More trusted professionals are joining Helpora.</h3>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                Are you a skilled tradesperson or business in Nigeria? List your services to start receiving inquiries today.
               </p>
-
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="pt-2">
                 <Link
-                  href="/community/report"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs sm:text-sm transition shadow-sm"
+                  href="/business/register"
+                  className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition"
                 >
-                  <span>Report a Community Issue</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/community/volunteer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm border border-white/15 transition"
-                >
-                  <span>Browse Volunteer Opportunities</span>
+                  <PlusCircle className="w-4 h-4" />
+                  <span>List Your Business</span>
                 </Link>
               </div>
             </div>
-
-            <div className="lg:col-span-4 bg-white/5 p-6 rounded-2xl border border-white/10 space-y-3 text-xs">
-              <p className="font-bold text-teal-300 uppercase tracking-wider text-[10px]">Recent Community Reports</p>
-              <div className="space-y-2">
-                <div className="p-2.5 rounded-xl bg-white/10">
-                  <p className="font-semibold text-white">Damaged Storm Drain • Wuse II</p>
-                  <span className="text-[10px] text-amber-300">Under Review by municipal team</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-white/10">
-                  <p className="font-semibold text-white">Burst Water Reticulation Pipe • Garki</p>
-                  <span className="text-[10px] text-emerald-300">Resolved • Water restored</span>
-                </div>
-              </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProviders.slice(0, 6).map((provider) => (
+                <ProviderCard key={provider.id} provider={provider} />
+              ))}
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-      {/* 5. How CivicTrust Works (3-Step Guide) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 5. HOW HELPORA WORKS (01 Search, 02 Compare, 03 Connect) */}
+      <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Simple, Transparent Process
+          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">
+            Simple & Transparent
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
-            How CivicTrust Works
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mt-2">
+            How Helpora Works
           </h2>
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            Getting quality help nearby in Nigeria shouldn&apos;t be stressful.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-center space-y-3 relative shadow-xs">
-            <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-700 font-extrabold text-lg flex items-center justify-center mx-auto border border-brand-200">
-              1
+          
+          {/* Step 1 */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 text-center sm:text-left space-y-4 relative">
+            <span className="text-4xl font-black text-emerald-100 block">01</span>
+            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto sm:mx-0">
+              <Search className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-lg text-slate-900">Search & Specify</h3>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Tell us what you need — from emergency inverter troubleshooting to physics tutoring or nearby hospital trauma care.
+            <h3 className="text-lg font-bold text-slate-900">Search</h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Tell us what you need. Filter by category, location, or find who is open right now near you.
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-center space-y-3 relative shadow-xs">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 font-extrabold text-lg flex items-center justify-center mx-auto border border-emerald-200">
-              2
+          {/* Step 2 */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 text-center sm:text-left space-y-4 relative">
+            <span className="text-4xl font-black text-emerald-100 block">02</span>
+            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto sm:mx-0">
+              <Star className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-lg text-slate-900">Compare & Verify</h3>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Review verified licenses, real proximity distances, live operating status, and honest neighbor reviews.
+            <h3 className="text-lg font-bold text-slate-900">Compare</h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Explore profiles, verified ratings, specific services, and distance to make the right choice.
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 text-center space-y-3 relative shadow-xs">
-            <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 font-extrabold text-lg flex items-center justify-center mx-auto border border-purple-200">
-              3
+          {/* Step 3 */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 text-center sm:text-left space-y-4 relative">
+            <span className="text-4xl font-black text-emerald-100 block">03</span>
+            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto sm:mx-0">
+              <PhoneCall className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-lg text-slate-900">Connect Directly</h3>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Call directly or navigate using GPS coordinates. No middlemen, no commissions, and no hidden markups.
+            <h3 className="text-lg font-bold text-slate-900">Connect</h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Call directly, get turn-by-turn map directions, or bookmark listings for future work.
             </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. TRUST & SAFETY SECTION ("Your safety comes first.") */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-slate-900 text-white rounded-3xl p-8 sm:p-12 overflow-hidden relative">
+          <div className="max-w-3xl space-y-4 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-400/30">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>Helpora Trust Standards</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              Your safety comes first.
+            </h2>
+            
+            <p className="text-sm text-slate-300 leading-relaxed max-w-2xl">
+              We know trust is the single most important factor when hiring local help. Helpora is built around transparent identity standards, review moderation, and clear verification badges.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              <div className="flex items-start gap-3">
+                <FileCheck2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-white">Look for the Helpora Verified Badge</h4>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Verified badges are only awarded when business registration and contact details have been manually audited.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Lock className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-white">Transparent Profiles & History</h4>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    View real operating hours, physical workshop addresses, and services before calling.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Star className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-white">Moderated Community Reviews</h4>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Customer feedback is screened to prevent fabricated ratings or spam.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Flag className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold text-white">Direct Listing Reporting</h4>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    Any user can flag inaccurate pricing, contact issues, or safety concerns with our moderation team.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <Link
+                href="/safety"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition"
+              >
+                <span>Read our full Safety & Trust Guidance →</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Why Trust CivicTrust (Trust & Verification Commitment) */}
+      {/* 7. AI STUDY SECTION ("Learn Something New") */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200/90 space-y-8">
-          <div className="max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-              Trust & Verification Standard
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div className="lg:col-span-7 space-y-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200">
+              Helpora Learning
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
-              Why CivicTrust is Different
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+              Learn Something New
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-              Unlike generic lead-generation sites that sell citizen contacts to the highest bidder, CivicTrust is built on civic transparency.
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
+              Helpora is more than a service directory. We provide patient, step-by-step AI learning support for technical trades, WAEC/JAMB prep, and science subjects.
             </p>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-xs">
-                <Check className="w-5 h-5" />
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <p className="text-xs font-bold text-slate-900">AI Tutor</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Interactive guided Q&A</p>
               </div>
-              <h4 className="font-bold text-sm text-slate-900">Trade License Audits</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Verification badges require cross-referencing national and state contractor registries.
-              </p>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <p className="text-xs font-bold text-slate-900">Study Materials</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Formulas & cheatsheets</p>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <p className="text-xs font-bold text-slate-900">Practice Quizzes</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">Instant test scoring</p>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-xs">
-                <Check className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Zero Fake Reviews</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Reviews are authenticated and moderated to eliminate spam and paid astroturfing.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-xs">
-                <Check className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">No Pay-For-Placement</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Providers cannot buy artificial top rankings. Relevance, distance, and ratings determine order.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 shadow-xs">
-                <Check className="w-5 h-5" />
-              </div>
-              <h4 className="font-bold text-sm text-slate-900">Clear Demo Disclosures</h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Sample development listings are distinctly tagged so users never confuse test data with real businesses.
-              </p>
+            <div className="pt-3">
+              <Link
+                href="/study"
+                className="inline-flex items-center gap-2 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-slate-900 bg-amber-400 hover:bg-amber-500 transition shadow-xs"
+              >
+                <span>Start Learning</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
+
+          <div className="lg:col-span-5 bg-slate-900 rounded-2xl p-5 text-white space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-xs">
+                  AI
+                </div>
+                <span className="text-xs font-bold text-slate-200">Helpora Study Tutor</span>
+              </div>
+              <span className="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full">Active</span>
+            </div>
+
+            <div className="space-y-2 text-xs">
+              <div className="p-2.5 rounded-lg bg-slate-800/80 text-slate-300">
+                <p className="font-semibold text-amber-300 text-[11px]">Prompt:</p>
+                <p>&ldquo;How do I size an inverter battery bank for a 3kVA setup in Nigeria?&rdquo;</p>
+              </div>
+              <div className="p-2.5 rounded-lg bg-slate-800 text-slate-200">
+                <p className="font-semibold text-emerald-400 text-[11px]">Tutor:</p>
+                <p className="text-[11.5px] leading-relaxed">
+                  Let&apos;s break it down step-by-step! First, calculate your total continuous load in Watts, then choose between a 24V or 48V DC bus architecture...
+                </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* 7. Business Registration Banner CTA */}
+      {/* 8. HEALTH & HELP SECTION ("Important Help When You Need It") */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-900 rounded-3xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-2 max-w-xl text-center md:text-left">
-            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wide">
-              For Professional Service Providers
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div className="lg:col-span-7 space-y-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
+              Healthcare Directory
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Are you a licensed trade professional in Nigeria?
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+              Important Help When You Need It
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              List your business on CivicTrust today. Zero listing charges, zero commission fees on your jobs, and direct customer phone calls.
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
+              Access verified emergency lines, 24/7 pharmacies, general hospitals, and community clinics near you. Information is kept clear, accurate, and non-alarmist.
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-2 text-xs">
+              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">Hospitals & Trauma</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">24/7 Pharmacies</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">Emergency Toll-Free (112)</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">Mental Health Support</span>
+              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">Dental & Labs</span>
+            </div>
+
+            <div className="pt-3">
+              <Link
+                href="/health"
+                className="inline-flex items-center gap-2 py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 transition shadow-xs"
+              >
+                <span>Find Health & Help</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 bg-rose-50/70 rounded-2xl p-6 border border-rose-200 space-y-3">
+            <div className="flex items-center gap-2 text-rose-800 font-bold text-sm">
+              <HeartPulse className="w-5 h-5 text-rose-600" />
+              <span>National Emergency Hotline</span>
+            </div>
+            <p className="text-xs text-slate-600">
+              For life-threatening emergencies, dial Nigeria&apos;s unified 112 dispatch toll-free from any network.
+            </p>
+            <div className="pt-2">
+              <a
+                href="tel:112"
+                className="inline-flex items-center gap-2 py-2 px-4 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 transition shadow-xs"
+              >
+                <PhoneCall className="w-3.5 h-3.5" />
+                <span>Dial 112 Toll-Free</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 9. COMMUNITY SECTION ("Help Your Community") */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="space-y-3 max-w-xl">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/60 px-2.5 py-1 rounded-md">
+              Civic Action
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+              Help Your Community
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Report public infrastructure issues (broken water mains, road potholes, streetlight outages) or volunteer with grassroots community development groups.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
-              href="/business/register"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition"
+              href="/community/report"
+              className="py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 bg-white hover:bg-slate-100 border border-slate-200 transition shadow-xs"
             >
-              <PlusCircle className="w-4 h-4" />
-              <span>List Your Business Free</span>
+              Report an Issue
             </Link>
             <Link
-              href="/dashboard/business"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/20 transition"
+              href="/community/volunteer"
+              className="py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-xs"
             >
-              <span>Owner Portal</span>
+              Find Volunteer Roles
+            </Link>
+            <Link
+              href="/community"
+              className="py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-slate-900 hover:underline"
+            >
+              Explore Community →
             </Link>
           </div>
         </div>
       </section>
+
+      {/* 10. BUSINESS ONBOARDING SECTION ("Grow Your Business With Helpora") */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-gradient-to-br from-emerald-900 to-slate-950 text-white rounded-3xl p-8 sm:p-12 border border-emerald-800/40 relative overflow-hidden">
+          <div className="max-w-3xl space-y-5 relative z-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold">
+              <Building2 className="w-3.5 h-3.5" />
+              <span>For Nigerian Trades & Enterprises</span>
+            </div>
+
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              Grow Your Business With Helpora
+            </h2>
+
+            <p className="text-sm text-slate-300 leading-relaxed max-w-xl">
+              Put your services in front of people looking for trusted professionals near them. Create a professional digital profile, showcase verified credentials, and receive customer calls with zero middleman fees.
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs text-slate-200">
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Create your profile</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Show your services</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Receive customer enquiries</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Build your reputation</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Manage your listing</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>No commissions</span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <Link
+                href="/business/register"
+                className="py-3 px-6 rounded-xl text-xs sm:text-sm font-bold text-slate-950 bg-white hover:bg-emerald-50 transition shadow-sm"
+              >
+                List Your Business
+              </Link>
+              <Link
+                href="/dashboard/business"
+                className="text-xs sm:text-sm font-semibold text-emerald-300 hover:text-white transition flex items-center gap-1"
+              >
+                <span>Already listed? Manage your business</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

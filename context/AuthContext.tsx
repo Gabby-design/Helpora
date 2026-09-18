@@ -19,7 +19,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'civictrust_user_session';
+const STORAGE_KEY = 'helpora_user_session';
+const LEGACY_STORAGE_KEY = 'civictrust_user_session';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -29,15 +30,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {
         setUser(JSON.parse(saved));
       } else {
         // Default demo user so the platform is immediately welcoming
         const defaultUser: User = {
           id: 'usr-demo-1',
-          name: 'Alex Rivera',
-          email: 'alex.rivera@example.com',
+          name: 'Amara Okafor',
+          email: 'amara.okafor@example.com',
           role: 'user',
           avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
         };

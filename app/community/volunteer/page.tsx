@@ -59,7 +59,7 @@ export default function CommunityVolunteerPage() {
             Back to Community Hub
           </Link>
           <span className="text-xs uppercase tracking-wider font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
-            Verified Civic Volunteer Network
+            Helpora Volunteer Network
           </span>
         </div>
       </div>

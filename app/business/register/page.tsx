@@ -143,7 +143,7 @@ function BusinessRegisterContent() {
   if (createdProviderId) {
     return (
       <div className="min-h-screen bg-slate-50 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 max-w-xl text-center space-y-6 shadow-md animate-fadeIn">
+        <div className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-12 max-w-xl text-center space-y-6 shadow-xl animate-fadeIn">
           <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-9 h-9" />
           </div>
@@ -153,28 +153,28 @@ function BusinessRegisterContent() {
               Listing Submitted for Verification!
             </h2>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Your business <strong>{name}</strong> has been created with status <strong className="text-amber-700">Pending Verification</strong>.
+              Your business <strong>{name}</strong> has been created with status <strong className="text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Pending Verification</strong>.
             </p>
           </div>
 
           <div className="bg-slate-50 rounded-2xl p-4 text-xs text-slate-600 text-left space-y-2 border border-slate-200">
             <p className="font-bold text-slate-800">What happens next?</p>
-            <p>1. Our civic moderators cross-reference your trade registration / license number with regulatory registries.</p>
-            <p>2. Once verified, your listing receives the green <strong>Verified Professional</strong> shield and appears in priority searches.</p>
+            <p>1. The Helpora trust & verification team cross-checks your trade registration / CAC license details.</p>
+            <p>2. Once verified, your listing receives the green <strong>Helpora Verified</strong> badge and appears in priority search results.</p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
               href={`/services/provider/${createdProviderId}`}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 text-white font-semibold text-xs transition hover:bg-slate-800 shadow"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition shadow"
             >
               View New Listing
             </Link>
             <Link
               href="/dashboard/business"
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold text-xs transition hover:bg-emerald-100"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition shadow-sm"
             >
-              Go to Business Dashboard →
+              Go to Business Dashboard &rarr;
             </Link>
           </div>
         </div>
@@ -197,16 +197,20 @@ function BusinessRegisterContent() {
 
           <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Zero Commissions • Zero Lead Fees</span>
+            <span>Zero Lead Fees &bull; Zero Commissions</span>
           </span>
         </div>
 
         <div className="space-y-2 text-center sm:text-left">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800 uppercase tracking-wider mb-1">
+            <Building2 className="w-3.5 h-3.5 text-emerald-600" />
+            Helpora For Business
+          </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            {claimId ? 'Claim & Verify Existing Business' : 'Register Your Service Business'}
+            {claimId ? 'Claim & Verify Existing Business' : 'Register Your Service Business on Helpora'}
           </h1>
           <p className="text-sm text-slate-600">
-            Join the verified civic directory. Direct client phone calls, transparent license audits, and honest community ratings.
+            Put your trade in front of customers looking for trusted local professionals near them. Direct calls, verified badges, and honest reviews.
           </p>
         </div>
 
@@ -448,12 +452,12 @@ function BusinessRegisterContent() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold shadow-md transition"
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-md hover:shadow-lg transition"
             >
               {isSubmitting ? (
-                <Loader2 className="w-4 h-4 animate-spin text-brand-400" />
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
               ) : (
-                <PlusCircle className="w-4 h-4 text-emerald-400" />
+                <PlusCircle className="w-4 h-4 text-emerald-100" />
               )}
               <span>Submit Listing for Verification</span>
             </button>

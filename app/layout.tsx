@@ -8,8 +8,11 @@ import AuthModal from '@/components/auth/AuthModal';
 import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
-  title: 'CivicTrust | Find Someone You Can Trust Near You',
-  description: 'Connect with vetted local electricians, plumbers, mechanics, phone repairers, cleaners, plus community study and emergency resources.',
+  title: 'Helpora | Find Trusted Help Near You',
+  description: 'Connect with trusted local professionals, learn with AI, and find essential health and community resources in Nigeria — all in one place.',
+  keywords: ['Helpora', 'Nigerian services', 'electrician', 'plumber', 'mechanic', 'phone repair', 'cleaner', 'tutor', 'Abuja', 'Lagos', 'trusted professionals', 'AI study'],
+  authors: [{ name: 'Helpora Nigeria' }],
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
 };
 
 export default function RootLayout({
@@ -27,7 +30,7 @@ export default function RootLayout({
           crossOrigin=""
         />
       </head>
-      <body className="flex flex-col min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-brand-500 selection:text-white">
+      <body className="flex flex-col min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-brand-600 selection:text-white">
         <AuthProvider>
           <EmergencyQuickBar />
           <Navbar />

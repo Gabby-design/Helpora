@@ -131,6 +131,7 @@ export interface StudySubject {
   name: string;
   slug: string;
   iconName: string;
+  icon?: string;
   description: string;
   sortOrder: number;
   active: boolean;

@@ -64,6 +64,15 @@ export default function StudyPracticePage() {
       if (data.success) {
         setAttemptResult(data.attempt);
         setSubmitted(true);
+
+        try {
+          const prevSaved = localStorage.getItem('helpora_quiz_attempts') || localStorage.getItem('civictrust_quiz_attempts') || '[]';
+          const list = JSON.parse(prevSaved);
+          list.unshift(data.attempt);
+          localStorage.setItem('helpora_quiz_attempts', JSON.stringify(list));
+        } catch (storageErr) {
+          console.error('Failed to save quiz attempt locally', storageErr);
+        }
       }
     } catch (e) {
       console.error('Failed to submit quiz attempt', e);

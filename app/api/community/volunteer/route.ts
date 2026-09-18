@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       cityId: body.cityId || 'abuja-fct',
       date: body.date?.trim() || 'Upcoming',
       requirements: Array.isArray(body.requirements) ? body.requirements : ['Open to all volunteers'],
-      contact: body.contact?.trim() || 'volunteer@civictrust.ng',
+      contact: body.contact?.trim() || 'volunteer@helpora.ng',
       active: true
     });
 

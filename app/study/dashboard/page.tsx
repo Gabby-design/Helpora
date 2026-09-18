@@ -23,7 +23,7 @@ export default function StudyDashboardPage() {
   useEffect(() => {
     // Check localStorage for saved attempts
     try {
-      const saved = localStorage.getItem('civictrust_quiz_attempts');
+      const saved = localStorage.getItem('helpora_quiz_attempts') || localStorage.getItem('civictrust_quiz_attempts');
       if (saved) {
         setAttempts(JSON.parse(saved));
       }

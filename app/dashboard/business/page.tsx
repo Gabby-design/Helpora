@@ -15,10 +15,11 @@ import {
   CheckCircle2, 
   AlertCircle,
   Edit3,
-  Image as ImageIcon,
   ExternalLink,
   Loader2,
-  TrendingUp
+  TrendingUp,
+  MapPin,
+  Calendar
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -27,10 +28,8 @@ export default function BusinessDashboardPage() {
   const [provider, setProvider] = useState<Provider | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'reviews' | 'settings'>('overview');
 
   useEffect(() => {
-    // Look up provider owned or claimed by current user, or show the first demo/provider for demonstration
     fetch('/api/providers')
       .then(res => res.json())
       .then(json => {
@@ -56,8 +55,8 @@ export default function BusinessDashboardPage() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
         <div className="text-center space-y-3">
-          <Loader2 className="w-8 h-8 animate-spin text-brand-600 mx-auto" />
-          <p className="text-sm font-semibold text-slate-700">Loading your business portal...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-emerald-600 mx-auto" />
+          <p className="text-sm font-semibold text-slate-700">Loading your Helpora business portal...</p>
         </div>
       </div>
     );
@@ -70,11 +69,11 @@ export default function BusinessDashboardPage() {
           <Building2 className="w-12 h-12 text-slate-400 mx-auto" />
           <h2 className="text-xl font-bold text-slate-900">No Business Listing Found</h2>
           <p className="text-xs text-slate-500 leading-relaxed">
-            You do not currently manage an active business listing on CivicTrust. Register your trade or claim an existing verified listing.
+            You do not currently manage an active business listing on Helpora. Register your trade or claim an existing listing to access this dashboard.
           </p>
           <Link
             href="/business/register"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs shadow"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition"
           >
             <span>List Your Business Now</span>
           </Link>
@@ -84,32 +83,33 @@ export default function BusinessDashboardPage() {
   }
 
   const isVerified = provider.verification_status === 'verified';
-  const completenessScore = 85; // Based on photos, hours, and description
+  const completenessScore = 85;
 
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-8">
+        
         {/* Business Header Banner */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Business Management Portal
+                Helpora Provider Portal
               </span>
               {isVerified ? (
                 <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-300">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Verified Listing</span>
+                  <span>Helpora Verified</span>
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-300">
                   <Clock className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Verification Audit Pending</span>
+                  <span>Pending Document Audit</span>
                 </span>
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-950">
               {provider.name}
             </h1>
             <p className="text-xs text-slate-500">
@@ -129,7 +129,7 @@ export default function BusinessDashboardPage() {
 
             <Link
               href="/business/register"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-xs"
             >
               <Edit3 className="w-3.5 h-3.5" />
               <span>Edit Details</span>
@@ -137,7 +137,7 @@ export default function BusinessDashboardPage() {
           </div>
         </div>
 
-        {/* Profile Completeness & Status Alert */}
+        {/* Profile Completeness & Status Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
@@ -146,12 +146,12 @@ export default function BusinessDashboardPage() {
             </div>
             <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
               <div
-                className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                className="bg-emerald-600 h-full rounded-full transition-all duration-500"
                 style={{ width: `${completenessScore}%` }}
               />
             </div>
             <p className="text-[11px] text-slate-500">
-              Profiles with photos and verified trade licenses receive 4x more direct phone contacts.
+              Profiles with photos and verified trade licenses receive 4x more customer calls.
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default function BusinessDashboardPage() {
               {isVerified ? (
                 <div className="flex items-center gap-1.5 text-emerald-700 font-bold text-sm">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  <span>Verified by CivicTrust Admin</span>
+                  <span>Verified by Helpora Admin</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-1.5 text-amber-700 font-bold text-sm">
@@ -171,7 +171,7 @@ export default function BusinessDashboardPage() {
               )}
             </div>
             <p className="text-[11px] text-slate-500">
-              License on file: <span className="font-mono text-purple-700">{provider.license_number || 'None provided'}</span>
+              License on file: <span className="font-mono text-slate-800">{provider.license_number || 'None provided'}</span>
             </p>
           </div>
 
@@ -183,11 +183,11 @@ export default function BusinessDashboardPage() {
                 {provider.avg_rating > 0 ? provider.avg_rating.toFixed(1) : 'New'}
               </span>
               <span className="text-xs text-slate-500">
-                ({reviews.length} authenticated reviews)
+                ({reviews.length} authenticated {reviews.length === 1 ? 'review' : 'reviews'})
               </span>
             </div>
             <p className="text-[11px] text-slate-500">
-              Direct feedback submitted by verified local neighbors.
+              Direct feedback submitted by verified local customers.
             </p>
           </div>
         </div>
@@ -196,8 +196,8 @@ export default function BusinessDashboardPage() {
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <TrendingUp className="w-4 h-4 text-brand-600" />
-              <span>Engagement Telemetry</span>
+              <TrendingUp className="w-4 h-4 text-emerald-600" />
+              <span>Listing Telemetry</span>
             </span>
             <h3 className="text-lg font-bold text-slate-900 mt-1">Listing Interactions</h3>
           </div>
@@ -208,7 +208,7 @@ export default function BusinessDashboardPage() {
               Analytics will appear as people interact with your listing.
             </p>
             <p className="text-xs text-slate-500 max-w-md mx-auto">
-              CivicTrust records genuine customer interactions — including direct phone taps, direction clicks, and community reviews — without fabricating synthetic statistics.
+              Helpora records genuine customer interactions — including direct phone taps, direction clicks, and customer reviews — without fabricating synthetic statistics.
             </p>
           </div>
 
@@ -226,15 +226,15 @@ export default function BusinessDashboardPage() {
             </div>
 
             <div className="p-4 rounded-xl bg-white border border-slate-200 text-center">
-              <Navigation className="w-4 h-4 text-brand-600 mx-auto mb-1" />
+              <Navigation className="w-4 h-4 text-emerald-600 mx-auto mb-1" />
               <p className="text-xl font-extrabold text-slate-900">—</p>
               <p className="text-[11px] text-slate-500">Directions Tapped</p>
             </div>
 
             <div className="p-4 rounded-xl bg-white border border-slate-200 text-center">
-              <MessageSquare className="w-4 h-4 text-purple-600 mx-auto mb-1" />
+              <MessageSquare className="w-4 h-4 text-amber-500 mx-auto mb-1" />
               <p className="text-xl font-extrabold text-slate-900">{reviews.length}</p>
-              <p className="text-[11px] text-slate-500">Neighbor Reviews</p>
+              <p className="text-[11px] text-slate-500">Reviews</p>
             </div>
           </div>
         </div>

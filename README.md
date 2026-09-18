@@ -1,8 +1,8 @@
-# Helpora (CivicTrust Verified Network)
+# Helpora
 
-> **"Find help. Learn. Connect."**
+> **"Find Trusted Help Near You"**
 
-A modern civic technology network designed to connect citizens with verified local trades, essential healthcare facilities, emergency hotlines, and an AI-powered study companion.
+Connect with trusted local professionals, learn with AI, and find essential resources — all in one place.
 
 ---
 

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const SYSTEM_PROMPT = `You are the CivicTrust AI Study Partner and patient academic tutor.
+const SYSTEM_PROMPT = `You are the Helpora AI Study Partner and patient academic tutor.
 Your core principles:
 1. Be patient, encouraging, and clear.
 2. Rather than simply giving raw answers, explain the underlying logic, derivations, and principles step-by-step.
@@ -88,7 +88,7 @@ Would you like me to walk through a concrete, step-by-step example together?`;
 
   return `### Step-by-Step Guidance 📚
 
-Thank you for bringing up **"${query}"**! As your CivicTrust study tutor, let's explore this together:
+Thank you for bringing up **"${query}"**! As your Helpora study tutor, let's explore this together:
 
 1. **The Core Concept**:
    Understanding this topic starts with defining what principles govern it. In both academic examinations and practical applications, clarity on the fundamentals is 80% of the mastery.
@@ -173,7 +173,7 @@ export async function POST(request: Request) {
       success: true,
       data: {
         reply: fallbackReply,
-        source: 'civictrust-tutor-engine'
+        source: 'helpora-tutor-engine'
       }
     });
   } catch (err: any) {
@@ -184,7 +184,7 @@ export async function POST(request: Request) {
       success: true,
       data: {
         reply: fallbackReply,
-        source: 'civictrust-tutor-engine'
+        source: 'helpora-tutor-engine'
       }
     });
   }

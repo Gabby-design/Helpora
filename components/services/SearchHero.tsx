@@ -16,7 +16,9 @@ import {
   ShieldCheck, 
   ArrowRight,
   Loader2,
-  SlidersHorizontal
+  Star,
+  CheckCircle2,
+  PhoneCall
 } from 'lucide-react';
 import { CITIES, DEFAULT_CITY } from '@/lib/data/cities';
 import { ServiceCategory } from '@/lib/types';
@@ -44,16 +46,6 @@ export default function SearchHero() {
       .catch(console.error);
   }, []);
 
-  const iconMap: { [key: string]: any } = {
-    Zap,
-    Wrench,
-    Car,
-    Smartphone,
-    Sparkles,
-    GraduationCap,
-    Hammer
-  };
-
   const handleUseGeolocation = () => {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.');
@@ -68,12 +60,12 @@ export default function SearchHero() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         });
-        setLocationLabel('My GPS Location');
+        setLocationLabel('Current Location');
       },
       (err) => {
         setIsLocating(false);
         console.warn('Geolocation error:', err.message);
-        alert('Could not retrieve current location. Please select your city from the list.');
+        alert('Could not retrieve current location. Please select your city from the dropdown.');
       }
     );
   };
@@ -99,160 +91,198 @@ export default function SearchHero() {
   };
 
   return (
-    <div className="relative bg-gradient-to-b from-slate-900 via-slate-800 to-brand-950 text-white pt-12 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-800 overflow-hidden">
-      {/* Background glow effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-tr from-brand-600/20 via-emerald-500/10 to-transparent blur-3xl pointer-events-none" />
+    <div className="relative bg-white text-slate-900 pt-10 sm:pt-14 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80 overflow-hidden">
+      {/* Subtle warm decorative background accent */}
+      <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-emerald-50 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-slate-50 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto text-center relative z-10 space-y-6">
-        {/* Verification Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-semibold shadow-sm">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>CivicTrust Verified Civic Network</span>
-        </div>
-
-        {/* Hero Title */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-          Find help you can <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-brand-300">trust</span>.
-        </h1>
-
-        {/* Supporting Copy */}
-        <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-300 leading-relaxed">
-          Discover trusted local services, learn with AI, and find essential resources — all in one place.
-        </p>
-
-        {/* Primary Search Container */}
-        <form
-          onSubmit={handleSearch}
-          className="max-w-3xl mx-auto bg-white rounded-3xl p-3 sm:p-4 text-slate-900 shadow-2xl border border-white/20 mt-8 space-y-3"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
-            {/* Search Input Field */}
-            <div className="sm:col-span-6 relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="What do you need help with? (e.g. Inverter, Plumber, Math tutor)"
-                className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-slate-50/70"
-              />
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          
+          {/* Left Column: Headline, Description & Universal Search */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Safety Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Helpora Verified Network • Nigeria</span>
             </div>
 
-            {/* City / Location Selector */}
-            <div className="sm:col-span-4 relative flex items-center">
-              <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-              <select
-                value={selectedCityId}
-                onChange={(e) => {
-                  setSelectedCityId(e.target.value);
-                  setUserCoords(null);
-                  const c = CITIES.find(city => city.id === e.target.value);
-                  if (c) setLocationLabel(c.name);
-                }}
-                className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-slate-50/70 text-slate-800 font-medium appearance-none cursor-pointer"
-              >
-                {CITIES.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}, {c.state}
-                  </option>
-                ))}
-              </select>
+            {/* Main Heading */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12]">
+              Find Trusted Help <br className="hidden sm:inline" />
+              <span className="text-emerald-700">For Everyday Needs</span>
+            </h1>
 
-              <button
-                type="button"
-                onClick={handleUseGeolocation}
-                className="absolute right-2 text-slate-400 hover:text-brand-600 p-1"
-                title="Use current GPS location"
-              >
-                {isLocating ? <Loader2 className="w-4 h-4 animate-spin text-brand-600" /> : <Navigation className="w-4 h-4" />}
-              </button>
-            </div>
+            {/* Supporting Text */}
+            <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+              Connect with trusted local professionals for services, learning, health resources, and everyday help — all in one place.
+            </p>
 
-            {/* Primary CTA Submit Button */}
-            <div className="sm:col-span-2">
-              <button
-                type="submit"
-                className="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-sm"
-              >
-                <span>Find Help</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
-              </button>
-            </div>
-          </div>
+            {/* Universal Search Box */}
+            <form
+              onSubmit={handleSearch}
+              className="bg-white rounded-2xl p-3 sm:p-4 text-slate-900 shadow-elevated border border-slate-200/90 space-y-3"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
+                {/* Search Query Input */}
+                <div className="sm:col-span-12 md:col-span-5 relative">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="What do you need help with?"
+                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium placeholder:text-slate-400"
+                  />
+                </div>
 
-          {/* Quick Example Suggestions */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1 text-[11px] text-slate-500">
-            <span className="font-semibold text-slate-600">Popular:</span>
-            {[
-              'Solar Inverter',
-              'Borehole Pump',
-              'Car AC Diagnostic',
-              'Screen Repair',
-              'Deep Cleaning',
-              'JAMB Math Tutor',
-              'Emergency Care'
-            ].map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => setSearchQuery(tag)}
-                className="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition"
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-        </form>
+                {/* Category Selector */}
+                <div className="sm:col-span-6 md:col-span-3 relative">
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 text-slate-800 font-medium cursor-pointer"
+                  >
+                    <option value="all">All Categories</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-        {/* Secondary Navigation Actions */}
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-          <Link
-            href="/services/search"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-semibold border border-white/15 transition"
-          >
-            <SlidersHorizontal className="w-4 h-4 text-emerald-400" />
-            <span>Explore All Local Services</span>
-          </Link>
-          <Link
-            href="/study/tutor"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 text-xs sm:text-sm font-semibold border border-amber-400/30 transition"
-          >
-            <GraduationCap className="w-4 h-4" />
-            <span>Try AI Study Tutor</span>
-          </Link>
-          <Link
-            href="/health"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs sm:text-sm font-semibold border border-rose-400/30 transition"
-          >
-            <span>Health & Emergency Directory</span>
-          </Link>
-        </div>
+                {/* Location Selector with 'Use my location' button */}
+                <div className="sm:col-span-6 md:col-span-4 relative flex items-center">
+                  <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                  <select
+                    value={selectedCityId}
+                    onChange={(e) => {
+                      setSelectedCityId(e.target.value);
+                      setUserCoords(null);
+                      const c = CITIES.find(city => city.id === e.target.value);
+                      if (c) setLocationLabel(c.name);
+                    }}
+                    className="w-full pl-9 pr-9 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 text-slate-800 font-medium appearance-none cursor-pointer"
+                  >
+                    {CITIES.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}, {c.state}
+                      </option>
+                    ))}
+                  </select>
 
-        {/* Service Category Cards Carousel/Grid */}
-        <div className="pt-8">
-          <p className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">
-            Browse Popular Service Categories
-          </p>
+                  <button
+                    type="button"
+                    onClick={handleUseGeolocation}
+                    className="absolute right-2 p-1.5 text-slate-400 hover:text-emerald-700 transition"
+                    title="Use my location"
+                    aria-label="Use current location"
+                  >
+                    {isLocating ? (
+                      <Loader2 className="w-4 h-4 animate-spin text-emerald-600" />
+                    ) : (
+                      <Navigation className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-            {categories.map((cat) => {
-              const Icon = iconMap[cat.iconName] || Wrench;
-              return (
-                <Link
-                  key={cat.id}
-                  href={`/services/search?category=${cat.id}&cityId=${selectedCityId}`}
-                  className="p-3 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 hover:border-emerald-400/40 text-center flex flex-col items-center justify-center gap-2 transition group"
+              {/* Action row: Search Button and Examples */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1 border-t border-slate-100">
+                <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
+                  <span className="font-semibold text-slate-700">Try:</span>
+                  {[
+                    'Find a plumber',
+                    'Laptop repair',
+                    'Home tutor',
+                    'Cleaner',
+                    'Mechanic'
+                  ].map((example) => (
+                    <button
+                      key={example}
+                      type="button"
+                      onClick={() => setSearchQuery(example)}
+                      className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 text-slate-600 transition"
+                    >
+                      {example}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  type="submit"
+                  className="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-xs shrink-0"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-semibold text-white group-hover:text-emerald-300 transition">
-                    {cat.name}
-                  </span>
-                </Link>
-              );
-            })}
+                  <span>Search</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </form>
           </div>
+
+          {/* Right Column: High-Quality Service Collage */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative mx-auto max-w-md lg:max-w-none">
+              
+              {/* Main Service Visual Card */}
+              <div className="relative rounded-3xl overflow-hidden shadow-elevated border border-slate-200/80 bg-white">
+                <img
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
+                  alt="Verified Nigerian Service Professional"
+                  className="w-full h-72 sm:h-80 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                
+                {/* On-card caption */}
+                <div className="absolute bottom-4 left-4 right-4 text-white space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10.5px] font-bold uppercase tracking-wider">
+                      Solar & Electrical
+                    </span>
+                    <span className="text-xs text-slate-200">Abuja, FCT</span>
+                  </div>
+                  <h3 className="text-base font-bold text-white">
+                    Verified Inverter & Power System Specialists
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-xs text-emerald-300 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Identity Verified • Trade Audited</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Mini Card 1: Fast Response & Rating */}
+              <div className="absolute -top-4 -left-4 sm:-left-6 bg-white rounded-2xl p-3 shadow-elevated border border-slate-200 flex items-center gap-3 animate-fadeIn">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
+                  <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-extrabold text-slate-900">4.9 / 5.0</span>
+                    <span className="text-[10.5px] text-slate-500 font-medium">Rating</span>
+                  </div>
+                  <p className="text-[11px] text-slate-600">From verified customers</p>
+                </div>
+              </div>
+
+              {/* Floating Mini Card 2: Local Service Categories */}
+              <div className="absolute -bottom-4 -right-4 sm:-right-6 bg-white rounded-2xl p-3.5 shadow-elevated border border-slate-200 max-w-[210px] space-y-1.5 animate-fadeIn">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Verified Providers</span>
+                </div>
+                <p className="text-[11px] text-slate-600 leading-tight">
+                  Electricians, Plumbers, Tutors & Techs nearby.
+                </p>
+                <div className="flex items-center gap-1 text-[10.5px] text-emerald-700 font-semibold pt-0.5">
+                  <span>Direct phone & maps</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
