@@ -70,8 +70,30 @@ export default function SearchHero() {
     );
   };
 
+  const isHealthQuery = (query: string) => {
+    const q = query.toLowerCase();
+    return (
+      q.includes('hospital') || 
+      q.includes('clinic') || 
+      q.includes('pharmacy') || 
+      q.includes('doctor') || 
+      q.includes('emergency') || 
+      q.includes('chemist') || 
+      q.includes('medical')
+    );
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (isHealthQuery(searchQuery)) {
+      const params = new URLSearchParams();
+      if (searchQuery.trim()) params.set('search', searchQuery.trim());
+      params.set('navigateClosest', 'true');
+      router.push(`/health?${params.toString()}`);
+      return;
+    }
+
     const params = new URLSearchParams();
     if (selectedCategory && selectedCategory !== 'all') {
       params.set('category', selectedCategory);
@@ -88,6 +110,18 @@ export default function SearchHero() {
     }
 
     router.push(`/services/search?${params.toString()}`);
+  };
+
+  const handleScanEnvironment = () => {
+    if (isHealthQuery(searchQuery)) {
+      router.push('/health?navigateClosest=true');
+    } else {
+      const params = new URLSearchParams();
+      if (selectedCategory && selectedCategory !== 'all') params.set('category', selectedCategory);
+      if (searchQuery.trim()) params.set('search', searchQuery.trim());
+      params.set('navigateClosest', 'true');
+      router.push(`/services/search?${params.toString()}`);
+    }
   };
 
   return (
@@ -188,35 +222,53 @@ export default function SearchHero() {
                 </div>
               </div>
 
-              {/* Action row: Search Button and Examples */}
+              {/* Action row: Search Button, Scanner, and Examples */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1 border-t border-slate-100">
                 <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
-                  <span className="font-semibold text-slate-700">Try:</span>
+                  <span className="font-semibold text-slate-700">Quick:</span>
                   {[
-                    'Find a plumber',
-                    'Laptop repair',
-                    'Home tutor',
-                    'Cleaner',
-                    'Mechanic'
-                  ].map((example) => (
+                    { label: '🏥 Closest Hospital', query: 'hospital', isHealth: true },
+                    { label: '🩺 24/7 Clinic', query: 'clinic', isHealth: true },
+                    { label: 'Plumber', query: 'Find a plumber', isHealth: false },
+                    { label: 'Electrician', query: 'Electrician', isHealth: false },
+                    { label: 'Mechanic', query: 'Mechanic', isHealth: false }
+                  ].map((item) => (
                     <button
-                      key={example}
+                      key={item.label}
                       type="button"
-                      onClick={() => setSearchQuery(example)}
-                      className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 text-slate-600 transition"
+                      onClick={() => {
+                        if (item.isHealth) {
+                          router.push('/health?navigateClosest=true');
+                        } else {
+                          setSearchQuery(item.query);
+                        }
+                      }}
+                      className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 text-slate-600 transition font-medium"
                     >
-                      {example}
+                      {item.label}
                     </button>
                   ))}
                 </div>
 
-                <button
-                  type="submit"
-                  className="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-xs shrink-0"
-                >
-                  <span>Search</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={handleScanEnvironment}
+                    className="py-2.5 px-3.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-xs shrink-0 active:scale-95"
+                    title="Scan my location and route to the closest service or hospital"
+                  >
+                    <Navigation className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Scan Closest</span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="py-2.5 px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-xs shrink-0"
+                  >
+                    <span>Search</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </form>
           </div>

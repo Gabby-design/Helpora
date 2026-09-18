@@ -540,6 +540,15 @@ export default function ProviderProfilePage() {
                 <span>Call {provider.phone}</span>
               </a>
 
+              {/* Helpora Live Navigator CTA */}
+              <Link
+                href={`/services/search?category=${provider.category}&cityId=${provider.cityId || 'abuja'}&navigateClosest=true`}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-sm transition active:scale-95 shadow-xs"
+              >
+                <Navigation className="w-4 h-4 text-emerald-600" />
+                <span>Navigate in Helpora</span>
+              </Link>
+
               {/* Directions CTA */}
               <a
                 href={directionsUrl}
@@ -547,8 +556,8 @@ export default function ProviderProfilePage() {
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-sm transition"
               >
-                <Navigation className="w-4 h-4 text-emerald-600" />
-                <span>Directions on Map</span>
+                <Navigation className="w-4 h-4 text-slate-500" />
+                <span>Google Maps Directions</span>
               </a>
 
               {/* Location details */}

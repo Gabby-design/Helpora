@@ -152,9 +152,17 @@ export default function HealthDetailPage() {
 
           {/* Quick Action Buttons */}
           <div className="flex flex-wrap gap-3 pt-2 pb-6 border-b border-neutral-200">
+            <Link
+              href={`/health?targetId=${resource.id}`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition active:scale-95"
+            >
+              <Navigation className="w-4 h-4 text-white" />
+              Navigate on Map
+            </Link>
+
             <a
               href={`tel:${resource.phone}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm shadow-sm transition"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-sm transition"
             >
               <Phone className="w-4 h-4" />
               Call {resource.phone}
@@ -167,7 +175,7 @@ export default function HealthDetailPage() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-sm transition border border-neutral-300"
             >
               <Navigation className="w-4 h-4 text-neutral-600" />
-              Directions & Map
+              Google Maps
             </a>
           </div>
 

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Provider, ServiceCategory } from '@/lib/types';
 import ProviderCard from '@/components/services/ProviderCard';
-import ServicesMap from '@/components/services/Map';
+import ServicesMap, { MapPlace } from '@/components/services/Map';
 import { 
   ShieldCheck, 
   Clock, 
@@ -17,9 +17,12 @@ import {
   RotateCcw, 
   Loader2, 
   AlertCircle,
-  Navigation
+  Navigation,
+  Compass,
+  Radio
 } from 'lucide-react';
 import { CITIES, DEFAULT_CITY } from '@/lib/data/cities';
+import { findClosestEntity } from '@/lib/services/navigator';
 import Link from 'next/link';
 
 function SearchResultsContent() {
@@ -32,6 +35,7 @@ function SearchResultsContent() {
   const latParam = searchParams.get('lat');
   const lngParam = searchParams.get('lng');
   const queryParam = searchParams.get('search') || searchParams.get('query') || '';
+  const navigateClosestParam = searchParams.get('navigateClosest') === 'true';
 
   // Local Filter & Search States
   const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam);
@@ -42,6 +46,18 @@ function SearchResultsContent() {
   const [sortBy, setSortBy] = useState<'distance' | 'rating' | 'reviews'>('rating');
   const [mobileView, setMobileView] = useState<'list' | 'map'>('list');
   const [isLocating, setIsLocating] = useState<boolean>(false);
+
+  // Live Navigation & Scanner State
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(() => {
+    if (latParam && lngParam) {
+      const lat = parseFloat(latParam);
+      const lng = parseFloat(lngParam);
+      if (!isNaN(lat) && !isNaN(lng)) return [lat, lng];
+    }
+    return null;
+  });
+  const [activeDestination, setActiveDestination] = useState<MapPlace | null>(null);
+  const [isScanning, setIsScanning] = useState<boolean>(false);
 
   // Database categories
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
@@ -81,7 +97,10 @@ function SearchResultsContent() {
 
       const cityObj = CITIES.find(c => c.id === selectedCityId) || DEFAULT_CITY;
 
-      if (latParam && lngParam) {
+      if (userLocation) {
+        params.set('lat', userLocation[0].toString());
+        params.set('lng', userLocation[1].toString());
+      } else if (latParam && lngParam) {
         params.set('lat', latParam);
         params.set('lng', lngParam);
       } else {
@@ -113,6 +132,65 @@ function SearchResultsContent() {
     fetchProviders();
   };
 
+  // Environment scanner: finds current GPS and immediately routes to closest provider
+  const handleScanClosest = () => {
+    setIsScanning(true);
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.');
+      setIsScanning(false);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const uLat = pos.coords.latitude;
+        const uLng = pos.coords.longitude;
+        const coords = [uLat, uLng] as [number, number];
+        setUserLocation(coords);
+
+        if (providers.length > 0) {
+          const closest = findClosestEntity({ lat: uLat, lng: uLng }, providers);
+          if (closest) {
+            setActiveDestination({
+              ...closest.item,
+              distanceKm: closest.distanceKm
+            } as any);
+            setSelectedProviderId(closest.item.id);
+            setMobileView('map');
+          }
+        }
+        setIsScanning(false);
+      },
+      (err) => {
+        console.warn('Geolocation failed or denied, using city default coordinates', err);
+        const cityObj = CITIES.find(c => c.id === selectedCityId) || DEFAULT_CITY;
+        const coords = [cityObj.lat, cityObj.lng] as [number, number];
+        setUserLocation(coords);
+
+        if (providers.length > 0) {
+          const closest = findClosestEntity({ lat: cityObj.lat, lng: cityObj.lng }, providers);
+          if (closest) {
+            setActiveDestination({
+              ...closest.item,
+              distanceKm: closest.distanceKm
+            } as any);
+            setSelectedProviderId(closest.item.id);
+            setMobileView('map');
+          }
+        }
+        setIsScanning(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
+
+  // Handle navigateClosest auto-trigger if url has navigateClosest=true
+  useEffect(() => {
+    if (navigateClosestParam && providers.length > 0 && !activeDestination) {
+      handleScanClosest();
+    }
+  }, [navigateClosestParam, providers.length]);
+
   const handleUseLocation = () => {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.');
@@ -122,9 +200,11 @@ function SearchResultsContent() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setIsLocating(false);
+        const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+        setUserLocation(coords);
         const params = new URLSearchParams(window.location.search);
-        params.set('lat', pos.coords.latitude.toString());
-        params.set('lng', pos.coords.longitude.toString());
+        params.set('lat', coords[0].toString());
+        params.set('lng', coords[1].toString());
         router.push(`/services/search?${params.toString()}`);
       },
       (err) => {
@@ -186,6 +266,22 @@ function SearchResultsContent() {
 
             {/* Quick Filter Toggles & Sorting */}
             <div className="flex flex-wrap items-center gap-2">
+              {/* Quick Scan Closest Button */}
+              <button
+                type="button"
+                onClick={handleScanClosest}
+                disabled={isScanning}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs transition active:scale-95 disabled:opacity-75"
+                title="Scan environment & route to closest help"
+              >
+                {isScanning ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+                ) : (
+                  <Compass className="w-3.5 h-3.5 text-white animate-spin-slow" />
+                )}
+                <span>Scan Closest</span>
+              </button>
+
               {/* Verified Only Toggle */}
               <button
                 type="button"
@@ -312,13 +408,25 @@ function SearchResultsContent() {
             </p>
           </div>
 
-          <Link
-            href="/business/register"
-            className="text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5"
-          >
-            <PlusCircle className="w-3.5 h-3.5 text-emerald-600" />
-            <span>List your business on Helpora</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleScanClosest}
+              disabled={isScanning}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-xs active:scale-95 disabled:opacity-60"
+            >
+              <Compass className={`w-3.5 h-3.5 ${isScanning ? 'animate-spin' : ''}`} />
+              <span>{isScanning ? 'Scanning...' : 'Find & Route to Closest'}</span>
+            </button>
+
+            <Link
+              href="/business/register"
+              className="text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5"
+            >
+              <PlusCircle className="w-3.5 h-3.5 text-emerald-600" />
+              <span>List business</span>
+            </Link>
+          </div>
         </div>
 
         {/* Dual Pane Layout (List + Interactive Map) */}
@@ -394,6 +502,11 @@ function SearchResultsContent() {
                     provider={provider}
                     isSelected={selectedProviderId === provider.id}
                     onHover={() => setSelectedProviderId(provider.id)}
+                    onNavigate={(p) => {
+                      setActiveDestination(p as any);
+                      setSelectedProviderId(p.id);
+                      setMobileView('map');
+                    }}
                   />
                 ))}
               </div>
@@ -407,7 +520,7 @@ function SearchResultsContent() {
             }`}
           >
             <ServicesMap
-              providers={providers}
+              providers={providers as any}
               selectedProviderId={selectedProviderId}
               onSelectProvider={(id) => {
                 setSelectedProviderId(id);
@@ -416,7 +529,18 @@ function SearchResultsContent() {
                   element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
               }}
-              center={[currentCity.lat, currentCity.lng]}
+              userLocation={userLocation}
+              activeDestination={activeDestination}
+              onStartNavigation={(place) => {
+                setActiveDestination(place);
+                setSelectedProviderId(place.id);
+                setMobileView('map');
+              }}
+              onStopNavigation={() => setActiveDestination(null)}
+              onScanClosest={handleScanClosest}
+              isScanning={isScanning}
+              center={userLocation || [currentCity.lat, currentCity.lng]}
+              searchLabel={searchQuery || activeCategoryObj?.name || 'help'}
             />
           </div>
         </div>

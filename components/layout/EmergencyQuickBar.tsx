@@ -97,11 +97,11 @@ export default function EmergencyQuickBar() {
           )}
 
           <Link
-            href="/health"
-            className="text-[11px] font-medium text-emerald-400 hover:text-emerald-300 flex items-center gap-1 ml-1 transition"
+            href="/health?navigateClosest=true"
+            className="text-[11px] font-bold text-emerald-300 hover:text-white flex items-center gap-1 ml-1 bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/60 px-2.5 py-0.5 rounded-full transition shadow-xs"
           >
-            <HeartPulse className="w-3 h-3" />
-            <span>Health & Help Directory →</span>
+            <HeartPulse className="w-3 h-3 text-emerald-400" />
+            <span>🏥 Route to Closest Hospital →</span>
           </Link>
         </div>
 
