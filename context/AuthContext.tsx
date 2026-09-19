@@ -1,16 +1,17 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '@/lib/types';
+import { User, UserRole } from '@/lib/types';
+import { AuthAdapter } from '@/lib/auth/adapter';
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  login: (email: string, password?: string) => Promise<void>;
-  loginWithGoogle: () => Promise<void>;
-  signup: (name: string, email: string, role?: 'user' | 'provider') => Promise<void>;
-  logout: () => void;
-  switchRole: (role: 'user' | 'provider' | 'admin') => void;
+  login: (email: string, password?: string, returnTo?: string) => Promise<{ success: boolean; message?: string; redirectTo?: string; user?: User }>;
+  loginWithGoogle: (returnTo?: string) => Promise<{ success: boolean; message?: string }>;
+  signup: (name: string, email: string, password: string, role?: UserRole, turnstileToken?: string) => Promise<{ success: boolean; message?: string; redirectTo?: string }>;
+  logout: () => Promise<void>;
+  switchRole: (role: UserRole) => void;
   isAuthModalOpen: boolean;
   openAuthModal: (initialMode?: 'signin' | 'signup') => void;
   closeAuthModal: () => void;
@@ -32,18 +33,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {
-        setUser(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        setUser(parsed);
+        // Sync cookie
+        fetch('/api/auth/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user: parsed })
+        }).catch(() => {});
       } else {
-        // Default demo user so the platform is immediately welcoming
-        const defaultUser: User = {
-          id: 'usr-demo-1',
-          name: 'Amara Okafor',
-          email: 'amara.okafor@example.com',
-          role: 'user',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'
-        };
-        setUser(defaultUser);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultUser));
+        // Guests start unauthenticated so they experience guest browsing and see Sign In
+        setUser(null);
       }
     } catch (e) {
       console.error('Error reading auth state:', e);
@@ -52,64 +52,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const saveUser = (newUser: User | null) => {
+  const saveUser = async (newUser: User | null) => {
     setUser(newUser);
     if (newUser) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
+      await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user: newUser })
+      }).catch(() => {});
     } else {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
     }
   };
 
-  const login = async (email: string, _password?: string) => {
-    // Determine role based on email or default to user
-    let role: 'user' | 'provider' | 'admin' = 'user';
-    if (email.includes('admin')) role = 'admin';
-    if (email.includes('provider') || email.includes('electric') || email.includes('plumb')) role = 'provider';
-
-    const loggedUser: User = {
-      id: `usr-${Date.now()}`,
-      name: email.split('@')[0].replace('.', ' ').replace(/^\w/, c => c.toUpperCase()),
-      email,
-      role,
-      avatar: `https://avatar.vercel.sh/${email}`
-    };
-    saveUser(loggedUser);
-    setIsAuthModalOpen(false);
+  const login = async (email: string, password = '', returnTo?: string) => {
+    const result = await AuthAdapter.signInWithPassword(email, password, returnTo);
+    if (result.success && result.user) {
+      await saveUser(result.user);
+      setIsAuthModalOpen(false);
+    }
+    return result;
   };
 
-  const loginWithGoogle = async () => {
-    const googleUser: User = {
-      id: 'usr-google-889',
-      name: 'Jordan Martinez',
-      email: 'jordan.martinez@gmail.com',
-      role: 'user',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80'
-    };
-    saveUser(googleUser);
-    setIsAuthModalOpen(false);
+  const loginWithGoogle = async (returnTo = '/account') => {
+    return await AuthAdapter.signInWithGoogle(returnTo);
   };
 
-  const signup = async (name: string, email: string, role: 'user' | 'provider' = 'user') => {
-    const newUser: User = {
-      id: `usr-${Date.now()}`,
-      name,
-      email,
-      role,
-      avatar: `https://avatar.vercel.sh/${email}`
-    };
-    saveUser(newUser);
-    setIsAuthModalOpen(false);
+  const signup = async (
+    name: string,
+    email: string,
+    password = '',
+    role: UserRole = 'user',
+    turnstileToken?: string
+  ) => {
+    const result = await AuthAdapter.signUp(name, email, password, role, turnstileToken);
+    if (result.success && result.user) {
+      await saveUser(result.user);
+      setIsAuthModalOpen(false);
+    }
+    return result;
   };
 
-  const logout = () => {
-    saveUser(null);
+  const logout = async () => {
+    await saveUser(null);
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login';
+    }
   };
 
-  const switchRole = (newRole: 'user' | 'provider' | 'admin') => {
+  const switchRole = async (newRole: UserRole) => {
     if (!user) return;
-    const updated = { ...user, role: newRole };
-    saveUser(updated);
+    const updated: User = { ...user, role: newRole };
+    await saveUser(updated);
   };
 
   const openAuthModal = (initialMode: 'signin' | 'signup' = 'signin') => {

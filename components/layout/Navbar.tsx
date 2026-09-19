@@ -223,34 +223,42 @@ export default function Navbar() {
                               user.role === 'admin'
                                 ? 'bg-purple-100 text-purple-800'
                                 : user.role === 'provider'
-                                ? 'bg-emerald-100 text-emerald-800'
-                                : 'bg-slate-100 text-slate-800'
+                                ? 'bg-sky-100 text-sky-800'
+                                : user.role === 'volunteer_org'
+                                ? 'bg-teal-100 text-teal-800'
+                                : 'bg-emerald-100 text-emerald-800'
                             }`}
                           >
-                            {user.role} role
+                            {user.role.replace('_', ' ')}
                           </span>
                         </div>
                       </div>
 
                       {/* Role switcher for testing */}
                       <div className="px-4 py-2 border-b border-slate-100 bg-slate-50/80">
-                        <p className="text-[11px] font-medium text-slate-500 mb-1.5">Switch mode:</p>
-                        <div className="grid grid-cols-3 gap-1">
+                        <p className="text-[11px] font-medium text-slate-500 mb-1.5">Switch perspective:</p>
+                        <div className="grid grid-cols-2 gap-1">
                           <button
                             onClick={() => { switchRole('user'); setUserDropdownOpen(false); }}
-                            className={`px-1.5 py-1 rounded text-[11px] font-medium border ${user.role === 'user' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-200'}`}
+                            className={`px-1.5 py-1 rounded text-[10.5px] font-medium border ${user.role === 'user' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-200'}`}
                           >
-                            User
+                            Customer
                           </button>
                           <button
                             onClick={() => { switchRole('provider'); setUserDropdownOpen(false); }}
-                            className={`px-1.5 py-1 rounded text-[11px] font-medium border ${user.role === 'provider' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-200'}`}
+                            className={`px-1.5 py-1 rounded text-[10.5px] font-medium border ${user.role === 'provider' ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-slate-700 border-slate-200'}`}
                           >
                             Provider
                           </button>
                           <button
+                            onClick={() => { switchRole('volunteer_org'); setUserDropdownOpen(false); }}
+                            className={`px-1.5 py-1 rounded text-[10.5px] font-medium border ${user.role === 'volunteer_org' ? 'bg-teal-600 text-white border-teal-600' : 'bg-white text-slate-700 border-slate-200'}`}
+                          >
+                            Volunteer
+                          </button>
+                          <button
                             onClick={() => { switchRole('admin'); setUserDropdownOpen(false); }}
-                            className={`px-1.5 py-1 rounded text-[11px] font-medium border ${user.role === 'admin' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-slate-700 border-slate-200'}`}
+                            className={`px-1.5 py-1 rounded text-[10.5px] font-medium border ${user.role === 'admin' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-slate-700 border-slate-200'}`}
                           >
                             Admin
                           </button>
@@ -259,12 +267,12 @@ export default function Navbar() {
 
                       <div className="py-1">
                         <Link
-                          href="/profile"
+                          href="/account"
                           onClick={() => setUserDropdownOpen(false)}
                           className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2"
                         >
                           <UserIcon className="w-4 h-4 text-slate-500" />
-                          <span>My Account Profile</span>
+                          <span>My Account & Profile</span>
                         </Link>
                         <Link
                           href="/saved"
@@ -274,24 +282,26 @@ export default function Navbar() {
                           <Bookmark className="w-4 h-4 text-emerald-600" />
                           <span>Saved Items</span>
                         </Link>
-                        {user.role === 'provider' && (
+                        {(user.role === 'provider' || user.role === 'admin') && (
                           <Link
                             href="/dashboard/business"
                             onClick={() => setUserDropdownOpen(false)}
                             className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2"
                           >
-                            <Building2 className="w-4 h-4 text-emerald-600" />
+                            <Building2 className="w-4 h-4 text-sky-600" />
                             <span>Business Dashboard</span>
                           </Link>
                         )}
-                        <Link
-                          href="/admin"
-                          onClick={() => setUserDropdownOpen(false)}
-                          className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2"
-                        >
-                          <ShieldAlert className="w-4 h-4 text-purple-600" />
-                          <span>Admin Portal</span>
-                        </Link>
+                        {user.role === 'admin' && (
+                          <Link
+                            href="/admin"
+                            onClick={() => setUserDropdownOpen(false)}
+                            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2"
+                          >
+                            <ShieldAlert className="w-4 h-4 text-purple-600" />
+                            <span>Admin Portal</span>
+                          </Link>
+                        )}
                         <button
                           onClick={() => { logout(); setUserDropdownOpen(false); }}
                           className="w-full text-left px-4 py-2 hover:bg-rose-50 text-rose-600 flex items-center gap-2"
@@ -304,14 +314,21 @@ export default function Navbar() {
                   )}
                 </div>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => openAuthModal('signin')}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition"
-                >
-                  <UserIcon className="w-3.5 h-3.5" />
-                  <span>Login / Register</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition"
+                  >
+                    <UserIcon className="w-3.5 h-3.5" />
+                    <span>Sign In</span>
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="hidden xl:flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition"
+                  >
+                    <span>Register</span>
+                  </Link>
+                </div>
               )}
             </div>
 
@@ -412,21 +429,30 @@ export default function Navbar() {
                     </button>
                   </div>
                   <Link
-                    href="/profile"
+                    href="/account"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block text-center py-2 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800"
                   >
-                    View Account Profile
+                    View Account Dashboard
                   </Link>
                 </div>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => { setMobileMenuOpen(false); openAuthModal('signin'); }}
-                  className="w-full py-2.5 px-4 rounded-lg text-sm font-bold bg-slate-900 text-white"
-                >
-                  Sign In / Register
-                </button>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full py-2.5 px-3 rounded-lg text-xs font-bold bg-slate-900 text-white text-center"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full py-2.5 px-3 rounded-lg text-xs font-bold bg-emerald-600 text-white text-center"
+                  >
+                    Create Account
+                  </Link>
+                </div>
               )}
             </div>
           </div>
@@ -472,15 +498,9 @@ export default function Navbar() {
           <span>Community</span>
         </Link>
         <Link
-          href={user ? '/profile' : '#'}
-          onClick={(e) => {
-            if (!user) {
-              e.preventDefault();
-              openAuthModal('signin');
-            }
-          }}
+          href={user ? '/account' : '/login'}
           className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10.5px] font-medium transition ${
-            pathname.startsWith('/profile') ? 'text-emerald-600 font-bold' : 'text-slate-500'
+            pathname.startsWith('/account') || pathname.startsWith('/login') ? 'text-emerald-600 font-bold' : 'text-slate-500'
           }`}
         >
           <UserIcon className="w-4 h-4" />

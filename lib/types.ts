@@ -275,12 +275,16 @@ export interface SavedItems {
   volunteer: string[];
 }
 
+export type UserRole = 'user' | 'provider' | 'volunteer_org' | 'admin';
+
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'user' | 'provider' | 'admin';
+  role: UserRole;
   avatar?: string;
   provider_id?: string;
+  email_verified?: boolean;
   saved_items?: SavedItems;
+  created_at?: string;
 }

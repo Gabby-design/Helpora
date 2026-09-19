@@ -27,7 +27,7 @@ export default function AuthModal() {
       if (mode === 'signin') {
         await login(email, password);
       } else {
-        await signup(name, email, role);
+        await signup(name, email, password, role);
       }
     } finally {
       setIsSubmitting(false);
@@ -108,7 +108,7 @@ export default function AuthModal() {
           {/* Google Sign In */}
           <button
             type="button"
-            onClick={loginWithGoogle}
+            onClick={() => loginWithGoogle()}
             className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-slate-300 rounded-xl font-medium text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-400 transition shadow-sm"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
