@@ -116,56 +116,56 @@ export default function HomePage() {
 
       {/* 2. TRUST STRIP (High-Impact Guarantees) */}
       <section className="border-y border-slate-200/80 bg-white/70 backdrop-blur-md py-6 shadow-subtle">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-left">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 text-left">
             
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
+            <div className="flex items-center gap-3.5 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-200 hover:bg-emerald-50/40 transition">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
                 <ShieldCheck className="w-5 h-5 text-emerald-600" />
               </div>
-              <div>
-                <p className="text-xs font-extrabold text-slate-950">Verified Pros</p>
-                <p className="text-[11px] text-slate-500 font-medium">CAC & identity audited</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm font-extrabold text-slate-950 truncate">Verified Pros</p>
+                <p className="text-[11px] text-slate-500 font-medium truncate">CAC & identity audited</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
+            <div className="flex items-center gap-3.5 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-200 hover:bg-emerald-50/40 transition">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
                 <Navigation className="w-5 h-5 text-emerald-600" />
               </div>
-              <div>
-                <p className="text-xs font-extrabold text-slate-950">GPS Road Routing</p>
-                <p className="text-[11px] text-slate-500 font-medium">Live road navigator</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm font-extrabold text-slate-950 truncate">GPS Road Routing</p>
+                <p className="text-[11px] text-slate-500 font-medium truncate">Live road navigator</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
+            <div className="flex items-center gap-3.5 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-200 hover:bg-emerald-50/40 transition">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
                 <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
               </div>
-              <div>
-                <p className="text-xs font-extrabold text-slate-950">Transparent Reviews</p>
-                <p className="text-[11px] text-slate-500 font-medium">100% genuine feedback</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm font-extrabold text-slate-950 truncate">Real Reviews</p>
+                <p className="text-[11px] text-slate-500 font-medium truncate">100% genuine feedback</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
+            <div className="flex items-center gap-3.5 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-200 hover:bg-emerald-50/40 transition">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
                 <PhoneCall className="w-5 h-5 text-emerald-600" />
               </div>
-              <div>
-                <p className="text-xs font-extrabold text-slate-950">Direct Contact</p>
-                <p className="text-[11px] text-slate-500 font-medium">Zero middleman fees</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm font-extrabold text-slate-950 truncate">Direct Contact</p>
+                <p className="text-[11px] text-slate-500 font-medium truncate">Zero middleman fees</p>
               </div>
             </div>
 
-            <div className="col-span-2 md:col-span-1 flex items-center gap-3 justify-start">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
+            <div className="col-span-2 sm:col-span-1 lg:col-span-1 flex items-center gap-3.5 p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-emerald-200 hover:bg-emerald-50/40 transition">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-700 flex items-center justify-center shrink-0 shadow-xs">
                 <Building2 className="w-5 h-5 text-emerald-600" />
               </div>
-              <div>
-                <p className="text-xs font-extrabold text-slate-950">Across Nigeria</p>
-                <p className="text-[11px] text-slate-500 font-medium">Abuja, Lagos & Nationwide</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-sm font-extrabold text-slate-950 truncate">Across Nigeria</p>
+                <p className="text-[11px] text-slate-500 font-medium truncate">Abuja, Lagos & Cities</p>
               </div>
             </div>
 
@@ -174,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. POPULAR SERVICES (Visual Category Grid with Smooth Hover) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200/80">
@@ -253,7 +253,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. SERVICE DISCOVERY & FEATURED PROVIDERS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="bg-slate-50 rounded-3xl p-6 sm:p-10 lg:p-12 border border-slate-200 shadow-subtle">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
@@ -342,7 +342,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. HOW HELPORA WORKS (01 Search, 02 Verify, 03 Connect & Route) */}
-      <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="how-it-works" className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200">
             Simple, Transparent & Fast
@@ -397,7 +397,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. TRUST & SAFETY SECTION (Luxury Dark Aesthetics) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white rounded-3xl p-8 sm:p-14 overflow-hidden relative border border-emerald-800/30 shadow-elevated-lg">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
           
@@ -471,7 +471,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. SPOTLIGHT A: HEALTH EMERGENCY NAVIGATOR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-elevated grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-7 space-y-5">
@@ -540,7 +540,7 @@ export default function HomePage() {
       </section>
 
       {/* 8. SPOTLIGHT B: AI STUDY TUTOR ("Learn Something New") */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-elevated grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-7 space-y-5">
@@ -611,7 +611,7 @@ export default function HomePage() {
       </section>
 
       {/* 9. NIGERIAN CITIES COVERAGE */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200">
             Nationwide Reach
@@ -644,7 +644,7 @@ export default function HomePage() {
       </section>
 
       {/* 10. BUSINESS ONBOARDING SECTION ("Grow Your Business With Helpora") */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="bg-gradient-to-br from-emerald-900 via-emerald-950 to-slate-950 text-white rounded-3xl p-8 sm:p-14 border border-emerald-800/40 relative overflow-hidden shadow-elevated-lg">
           <div className="max-w-3xl space-y-5 relative z-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/30">

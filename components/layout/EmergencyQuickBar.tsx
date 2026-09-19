@@ -42,7 +42,7 @@ export default function EmergencyQuickBar() {
       aria-label="Helpora Emergency Quick Bar"
       className="bg-slate-900 text-slate-200 text-xs border-b border-slate-800 transition-all relative z-50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2.5">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 py-1.5 flex flex-wrap items-center justify-between gap-2.5">
         {/* Left: Emergency Tagline */}
         <div className="flex items-center gap-2">
           <span className="flex h-2 w-2 relative">

@@ -196,7 +196,7 @@ function TutorChatContent() {
 
       {/* Top Header */}
       <header className="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-16 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -252,7 +252,7 @@ function TutorChatContent() {
       </header>
 
       {/* Main Layout: Conversation Sidebar + Chat Canvas */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-5 flex-1 flex gap-6 items-stretch">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto w-full px-3 sm:px-4 lg:px-6 py-5 flex-1 flex gap-6 items-stretch">
         
         {/* Left Sidebar (Conversations History) */}
         <aside className={`fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-slate-200 p-5 space-y-4 transform transition-transform duration-200 lg:relative lg:translate-x-0 lg:z-0 lg:rounded-3xl lg:border lg:shadow-elevated lg:h-[calc(100vh-150px)] flex flex-col justify-between ${

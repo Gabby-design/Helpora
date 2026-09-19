@@ -148,7 +148,7 @@ export default function AdminPage() {
       
       {/* Top Bar */}
       <header className="bg-slate-950 text-white border-b border-slate-800 sticky top-16 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
               <ShieldCheck className="w-5 h-5 text-white" />
@@ -178,7 +178,7 @@ export default function AdminPage() {
       </header>
 
       {/* Main Admin Workspace: Sidebar + Content */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col lg:flex-row gap-6 items-start">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto w-full px-3 sm:px-4 lg:px-6 py-6 flex-1 flex flex-col lg:flex-row gap-6 items-start">
         
         {/* Left Sidebar */}
         <aside className="w-full lg:w-60 bg-white rounded-2xl border border-slate-200 p-3 shadow-subtle shrink-0">

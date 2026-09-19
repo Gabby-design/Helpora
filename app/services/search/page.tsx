@@ -226,7 +226,7 @@ function SearchResultsContent() {
     <div className="min-h-screen bg-slate-50 flex flex-col pb-16">
       {/* Top Search & Filter Bar */}
       <div className="bg-white border-b border-slate-200 sticky top-16 z-30 shadow-subtle">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 py-3">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
             {/* Search Input & City Info */}
             <form onSubmit={handleSearchSubmit} className="flex-1 flex items-center gap-2">
@@ -394,7 +394,7 @@ function SearchResultsContent() {
       </div>
 
       {/* Main Results Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 py-6 flex-1 flex flex-col">
         {/* Results Header Info */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
           <div>

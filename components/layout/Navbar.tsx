@@ -78,7 +78,7 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-subtle transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
           <div className="flex items-center justify-between h-16 gap-3">
             {/* Left: HELPORA Brand Logo */}
             <div className="flex items-center gap-4 lg:gap-6">

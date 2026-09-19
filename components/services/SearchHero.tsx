@@ -129,13 +129,13 @@ export default function SearchHero() {
   };
 
   return (
-    <div className="relative bg-gradient-to-b from-white via-slate-50/50 to-white text-slate-900 pt-10 sm:pt-16 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80 overflow-hidden">
+    <div className="relative bg-gradient-to-b from-white via-slate-50/50 to-white text-slate-900 pt-8 sm:pt-12 pb-16 px-2 sm:px-4 lg:px-6 border-b border-slate-200/80 overflow-hidden">
       {/* Decorative ambient lighting elements */}
       <div className="absolute top-0 right-1/4 -mt-16 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Headline, Description & Universal Search */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-7">
@@ -307,7 +307,7 @@ export default function SearchHero() {
               <HeroCarousel />
 
               {/* Floating Mini Card 1: Fast Response & Rating */}
-              <div className="absolute -top-4 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-elevated border border-slate-200/90 flex items-center gap-3 animate-float">
+              <div className="absolute -top-5 -left-3 sm:-left-6 z-30 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-elevated-lg border border-slate-200/90 flex items-center gap-3 animate-float">
                 <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
                   <Star className="w-6 h-6 fill-amber-400 text-amber-400" />
                 </div>
@@ -321,7 +321,7 @@ export default function SearchHero() {
               </div>
 
               {/* Floating Mini Card 2: Live GPS Navigation Indicator */}
-              <div className="absolute -bottom-5 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-elevated border border-slate-200/90 max-w-[220px] space-y-1.5 animate-fadeIn">
+              <div className="absolute -bottom-6 -right-3 sm:-right-6 z-30 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-elevated-lg border border-slate-200/90 max-w-[220px] space-y-1.5 animate-fadeIn">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
                   <span className="flex h-2 w-2 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

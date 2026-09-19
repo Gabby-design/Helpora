@@ -191,7 +191,7 @@ export default function ProviderProfilePage() {
 
       {/* Top Breadcrumb & Quick Actions Bar */}
       <div className="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-16 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 py-3.5 flex items-center justify-between">
           <button
             onClick={() => router.back()}
             className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-emerald-700 transition"
@@ -224,7 +224,7 @@ export default function ProviderProfilePage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 pt-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Left Column: Overview, Photos, Hours, Reviews */}
           <div className="lg:col-span-8 space-y-8">

@@ -87,7 +87,7 @@ export default function BusinessDashboardPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto space-y-8">
         
         {/* Business Header Banner */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">

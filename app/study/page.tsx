@@ -101,7 +101,7 @@ export default function StudyPlatformPage() {
       </section>
 
       {/* Subjects Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
@@ -158,7 +158,7 @@ export default function StudyPlatformPage() {
       </section>
 
       {/* Featured Quizzes & Cheatsheets */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <section className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left: Quick Practice Quizzes */}
         <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-elevated space-y-6">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">

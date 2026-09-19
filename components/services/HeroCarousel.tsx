@@ -142,14 +142,14 @@ export default function HeroCarousel() {
 
   return (
     <div 
-      className="relative rounded-3xl overflow-hidden shadow-elevated-lg border border-slate-200/80 bg-slate-900 group select-none"
+      className="relative z-10 rounded-3xl overflow-hidden shadow-elevated-lg border border-slate-200/80 bg-slate-900 group select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       role="region"
       aria-label="Helpora Services Showcase Carousel"
     >
       {/* Slides Container */}
-      <div className="relative w-full h-[400px] sm:h-[440px]">
+      <div className="relative w-full h-[420px] sm:h-[460px] lg:h-[480px]">
         {HERO_SLIDES.map((slide, index) => {
           const isActive = index === currentIndex;
           const Icon = slide.icon;
@@ -176,7 +176,7 @@ export default function HeroCarousel() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/10" />
 
               {/* Slide Content Overlay */}
-              <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between text-white">
+              <div className="absolute inset-0 p-6 sm:p-7 lg:p-8 flex flex-col justify-between text-white">
                 {/* Top Row: Category Tag & Icon */}
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">

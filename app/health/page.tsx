@@ -242,7 +242,7 @@ function HealthDirectoryContent() {
     <div className="min-h-screen bg-slate-50 pb-20">
       {/* Top Banner / Emergency Callout */}
       <div className="bg-slate-900 text-white px-4 py-2.5 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
@@ -263,7 +263,7 @@ function HealthDirectoryContent() {
 
       {/* Main Hero Header with Scanner Button */}
       <div className="bg-white border-b border-slate-200 py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="max-w-2xl space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 inline-block">
@@ -391,7 +391,7 @@ function HealthDirectoryContent() {
       </div>
 
       {/* Main Dual-Pane Section: Facilities List + Interactive Navigator Map */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 py-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">
             Verified Healthcare Centers ({filtered.length})

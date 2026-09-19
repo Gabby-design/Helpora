@@ -75,7 +75,7 @@ export default function CommunityPage() {
 
       {/* Hero Header */}
       <div className="bg-white border-b border-slate-200/80 py-16 px-4 relative z-10">
-        <div className="max-w-6xl mx-auto">
+        <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6">
           <div className="max-w-2xl space-y-4">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
@@ -108,7 +108,7 @@ export default function CommunityPage() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-12 space-y-14">
+      <div className="w-full max-w-[96%] 2xl:max-w-[1760px] mx-auto px-3 sm:px-4 lg:px-6 py-12 space-y-14">
         {/* Reports Section */}
         <div>
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
